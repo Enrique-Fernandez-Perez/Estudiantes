@@ -1,7 +1,5 @@
 package com.example.appBack;
 
-import com.example.appBack.Student.repositorio.ProductoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,27 +12,11 @@ public class AppBackApplication implements CommandLineRunner
 
 	public static void main(String[] args)
 	{
-		/**Date fecha = new Date(2020,2,4);//new Date(2020,4,4);
-
-		System.err.println(fecha.getDay());
-		System.err.println(fecha.getMonth());
-		System.err.println(fecha.getYear());*/
-
-
-		/**fecha = new Date(Date.parse("2/10/2020"));
-
-		System.err.println(fecha.getDay());
-		System.err.println(fecha.getMonth());
-		System.err.println(fecha.getYear());*/
-
 		SpringApplication.run(AppBackApplication.class, args);
 	}
 
 	/**@Autowired
 	StudentRepository studentRepository;*/
-
-	@Autowired
-	ProductoRepository productoRepository;
 
 	@Override
 	public void run(String... arg0) throws Exception
