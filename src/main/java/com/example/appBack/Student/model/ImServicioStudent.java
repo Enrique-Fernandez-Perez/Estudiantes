@@ -1,7 +1,9 @@
-package com.example.appBack.Student.repositorio;
+package com.example.appBack.Student.model;
 
 import com.example.appBack.Student.Entity.Student;
 import com.example.appBack.Student.Entity.StudentDTO;
+import com.example.appBack.Student.repositorio.ServicioStudent;
+import com.example.appBack.Student.repositorio.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
