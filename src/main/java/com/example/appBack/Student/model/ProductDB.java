@@ -1,11 +1,8 @@
-package com.example.appBack.producto.model;
+package com.example.appBack.Student.model;
 
-import com.example.appBack.cabeceraFact.clase.CabeceraFact;
-import com.example.appBack.cabeceraFact.clase.CabeceraFactDTO;
-import com.example.appBack.cliente.clase.Cliente;
-import com.example.appBack.producto.clase.Producto;
-import com.example.appBack.producto.clase.ProductoDto;
-import com.example.appBack.producto.repositorio.ProductoRepository;
+import com.example.appBack.Student.Entity.Producto;
+import com.example.appBack.Student.Entity.ProductoDto;
+import com.example.appBack.Student.repositorio.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

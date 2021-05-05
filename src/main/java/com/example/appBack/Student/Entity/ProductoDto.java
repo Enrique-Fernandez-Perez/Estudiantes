@@ -1,6 +1,5 @@
-package com.example.appBack.producto.clase;
+package com.example.appBack.Student.Entity;
 
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.example.appBack.cliente.clase;
+package com.example.appBack.Student.Entity;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
@@ -11,25 +11,23 @@ import java.io.Serializable;
 
 @Data
 @Entity
-public class Cliente implements Serializable {
+public class Producto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCliente;
+    private Integer id_producto;
 
     @NotNull
     private String nombre;
 
-    public Cliente(String nombre) {
+    public Producto(Integer id_producto, String nombre) {
+        this.id_producto = id_producto;
         this.nombre = nombre;
+    }
+    public Producto() {
+
+    }
+    public Producto(ProductoDto pdto) {
+        this.nombre = pdto.getNombre();
     }
 
-    public Cliente(Integer id_cliente, String nombre) {
-        this.idCliente = id_cliente;
-        this.nombre = nombre;
-    }
-    public Cliente() {
-    }
-    public Cliente (ClienteFront cFront){
-        this.nombre = cFront.getNombre();
-    }
 }

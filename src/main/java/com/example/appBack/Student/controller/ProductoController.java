@@ -1,9 +1,8 @@
-package com.example.appBack.producto.controller;
+package com.example.appBack.Student.controller;
 
-import com.example.appBack.producto.clase.Producto;
-import com.example.appBack.producto.clase.ProductoDto;
-import com.example.appBack.producto.model.ProductDB;
-import com.example.appBack.producto.repositorio.ProductoRepository;
+import com.example.appBack.Student.Entity.Producto;
+import com.example.appBack.Student.Entity.ProductoDto;
+import com.example.appBack.Student.model.ProductDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
