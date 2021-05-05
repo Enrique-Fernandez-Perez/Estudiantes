@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -33,52 +34,53 @@ public class StudentRepositoryImpl
 
             String poner = "";//para recoger datos y limpieza de codigo
 
-            Student estudiante = new Student(estudianteDto);
+            //Student estudiante = new Student(estudianteDto);
 
-            if (estudiante.getNombre().trim().length() != 0) {
-                poner = estudiante.getNombre().toUpperCase().trim();
+            if (estudianteDto.getNombre().trim().length() != 0) {
+                poner = estudianteDto.getNombre().trim();
                 predicates.add(cb.like(root.get("nombre"), "%" + poner + "%"));
             }
 
-            if (estudiante.getApellido().trim().length() != 0) {
-                poner = estudiante.getApellido().toUpperCase().trim();
+            if (estudianteDto.getApellido().trim().length() != 0) {
+                poner = estudianteDto.getApellido().trim();
                 predicates.add(cb.equal(root.get("apellido"), "%" + poner + "%"));
             }
 
-            if (estudiante.getCorreo().trim().length() != 0) {
-                poner = estudiante.getCorreo().toUpperCase().trim();
+            if (estudianteDto.getCorreo().trim().length() != 0) {
+                poner = estudianteDto.getCorreo().trim();
                 predicates.add(cb.like(root.get("correo"), "%" + poner + "%"));
             }
 
-            poner = estudiante.getFecha_entrada().toString().trim();
+            poner = estudianteDto.getFecha_entrada().toString().trim();
             if (poner.length() != 0) {
-                Date fecha = estudiante.getFecha_entrada();
+                Date fecha = estudianteDto.getFecha_entrada();
                 predicates.add(cb.equal(root.get("fecha_entrada"), fecha));
             }
 
-            if (estudiante.getCiudad().trim().length() != 0) {
-                poner = estudiante.getCiudad().trim().toUpperCase();
+            if (estudianteDto.getCiudad().trim().length() != 0) {
+                poner = estudianteDto.getCiudad().trim();
                 predicates.add(cb.like(root.get("ciudad"), "%" + poner + "%"));
             }
 
-            if (estudiante.getHoras_semanales() != null) {
-                poner = estudiante.getHoras_semanales().toString().trim().toUpperCase();
+            if (estudianteDto.getHoras_semanales() != null) {
+                poner = estudianteDto.getHoras_semanales().toString().trim();
                 predicates.add(cb.equal(root.get("horas_semanales"), Integer.parseInt(poner)));
             }
 
-            if (estudiante.getEspecialidad().trim().length() != 0) {
-                poner = "%" + estudiante.getEspecialidad().trim().toUpperCase() + "%";
+            if (estudianteDto.getEspecialidad().trim().length() != 0) {
+                poner = "%" + estudianteDto.getEspecialidad().trim() + "%";
                 predicates.add(cb.like(root.get("especialidad"), poner));
             }
 
-            if (estudiante.getEstado().trim().length() != 0) {
-                poner = "%" + estudiante.getEstado().trim().toUpperCase() + "%";
+            if (estudianteDto.getEstado().trim().length() != 0) {
+                poner = "%" + estudianteDto.getEstado().trim() + "%";
                 predicates.add(cb.like(root.get("especialidad"), poner));
-                listaNull.put("estado", estudiante.getEstado());
+                listaNull.put("estado", estudianteDto.getEstado());
             }
 
             query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
-            List<Student> lista = entityManager.createQuery(query).getResultList();
+            List<Student> lista = new ArrayList<>();
+            lista.addAll(entityManager.createQuery(query).getResultList());
             return StudentDTO.getAllDTO(lista);
         }catch (Exception e)
         {
