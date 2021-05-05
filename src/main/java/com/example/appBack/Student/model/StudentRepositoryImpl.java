@@ -2,9 +2,7 @@ package com.example.appBack.Student.model;
 
 import com.example.appBack.Student.Entity.Student;
 import com.example.appBack.Student.Entity.StudentDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.Access;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -15,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class StudentRepositoryImp
+public class StudentRepositoryImpl
 {
     @PersistenceContext
     private EntityManager entityManager;
@@ -63,6 +61,5 @@ public class StudentRepositoryImp
         query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
         List<Student> lista = entityManager.createQuery(query).getResultList();
         return StudentDTO.getAllDTO(lista);
-        //return null;
     }
 }
