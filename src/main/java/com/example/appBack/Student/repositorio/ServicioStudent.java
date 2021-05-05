@@ -13,6 +13,7 @@ public interface ServicioStudent
     List<StudentDTO> getAll();
 
     void deleteStudent(int id);
+
     void deleteStudent(StudentDTO sdto);
 
     void updateStudent(int id, StudentDTO sdto);

@@ -1,8 +1,5 @@
 package com.example.appBack.Student.model;
 
-import com.example.appBack.Student.Entity.Producto;
-import com.example.appBack.Student.Entity.ProductoDto;
-import com.example.appBack.Student.repositorio.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -19,7 +19,7 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotNull
     private String nombre;
@@ -40,5 +40,16 @@ public class Student {
     private String estado;
 
 
+    public Student(StudentDTO studentDTO){
+        //id null
+        this.nombre=studentDTO.getNombre();
+        this.apellido=studentDTO.getApellido();
+        this.correo=studentDTO.getCorreo();
+        this.fecha_entrada=studentDTO.getFecha_entrada();
+        this.ciudad=studentDTO.getCiudad();
+        this.horas_semanales=studentDTO.getHoras_semanales();
+        this.especialidad=studentDTO.getEspecialidad();
+        this.estado=studentDTO.getEstado();
+    }
 
 }
