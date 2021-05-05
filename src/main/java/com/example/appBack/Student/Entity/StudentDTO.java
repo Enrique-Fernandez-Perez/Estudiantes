@@ -43,7 +43,7 @@ public class StudentDTO{
 
     public static List<StudentDTO> getAllDTO(List<Student> listStudent){
         List<StudentDTO> devolver = new ArrayList<>();
-        listStudent.stream().map(student -> devolver.add(getDTO(student)));
+        listStudent.forEach(student -> devolver.add(getDTO(student)));
         return devolver;
     }
 

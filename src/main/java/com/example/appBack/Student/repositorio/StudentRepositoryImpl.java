@@ -1,6 +1,7 @@
 package com.example.appBack.Student.repositorio;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,30 +37,52 @@ public class StudentRepositoryImpl
         if(estudiante.getNombre().trim().length()!=0)
         {
             poner = estudiante.getNombre().toUpperCase().trim();
-            predicates.add(cb.like (root.get("nombre"), "%"+poner+"%"));
+            predicates.add(cb.like (root.get("upper(nombre)"), "%"+poner+"%"));
         }
 
         if(estudiante.getApellido().trim().length()!=0)
         {
             poner = estudiante.getApellido().toUpperCase().trim();
-            predicates.add(cb.equal (root.get("apellido"), "%"+poner+"%"));
+            predicates.add(cb.equal (root.get("upper(apellido)"), "%"+poner+"%"));
         }
 
         if(estudiante.getCorreo().trim().length()!=0)
         {
             poner = estudiante.getCorreo().toUpperCase().trim();
-            predicates.add(cb.like(root.get("correo"), "%"+poner+"%"));
+            predicates.add(cb.like(root.get("upper(correo)"), "%"+poner+"%"));
         }
 
-        if(estudiante.getFecha_entrada().toString().trim().length()!=0){listaNull.put("fecha_entrada", estudiante.getApellido().toString());}
+        poner = estudiante.getFecha_entrada().toString().trim();
+        if(poner.length()!=0)
+        {
+            Date fecha = estudiante.getFecha_entrada();
+            predicates.add(cb.equal (root.get("fecha_entrada"), fecha));
+        }
 
-        if(estudiante.getCiudad().trim().length()!=0){listaNull.put("ciudad", estudiante.getCiudad());}
+        if(estudiante.getCiudad().trim().length()!=0)
+        {
+            poner = estudiante.getCiudad().trim().toUpperCase();
+            predicates.add(cb.like(root.get("upper(ciudad)"), "%"+poner+"%"));
+        }
 
-        if(estudiante.getHoras_semanales()!=null){listaNull.put("horas_semanales", estudiante.getHoras_semanales().toString());}
+        if(estudiante.getHoras_semanales()!=null)
+        {
+            poner = estudiante.getHoras_semanales().toString().trim().toUpperCase();
+            predicates.add(cb.equal (root.get("horas_semanales"), Integer.parseInt(poner)));
+        }
 
-        if(estudiante.getEspecialidad().trim().length()!=0){listaNull.put("especialidad", estudiante.getEspecialidad());}
+        if(estudiante.getEspecialidad().trim().length()!=0)
+        {
+            poner = "%"+estudiante.getEspecialidad().trim().toUpperCase()+"%";
+            predicates.add(cb.like (root.get("upper(especialidad)"), poner));
+        }
 
-        if(estudiante.getEstado().trim().length()!=0){listaNull.put("estado", estudiante.getEstado());}
+        if(estudiante.getEstado().trim().length()!=0)
+        {
+            poner = "%"+estudiante.getEstado().trim().toUpperCase()+"%";
+            predicates.add(cb.like (root.get("upper(especialidad)"), poner));
+            listaNull.put("estado", estudiante.getEstado());
+        }
 
         query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
         List<Student> lista = entityManager.createQuery(query).getResultList();
