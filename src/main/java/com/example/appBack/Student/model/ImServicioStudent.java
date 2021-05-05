@@ -5,6 +5,9 @@ import com.example.appBack.Student.Entity.StudentDTO;
 import com.example.appBack.Student.repositorio.ServicioStudent;
 import com.example.appBack.Student.repositorio.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -31,7 +34,7 @@ public class ImServicioStudent implements ServicioStudent
         Optional<Student> estudiante = studentRepository.findById(id);
         if(!estudiante.isEmpty())
         {
-            //return new StudentDTO(estudiante.get());
+            return StudentDTO.getDTO(estudiante.get());
         }
 
         return null;
@@ -41,9 +44,14 @@ public class ImServicioStudent implements ServicioStudent
     public List<StudentDTO> getAll()
     {
         List<Student> lista = studentRepository.findAll();
-        List<StudentDTO> devolver = new ArrayList<>();
-       // lista.forEach(s -> devolver.add(new StudentDTO(s)));
-        return devolver;
+        if(lista.isEmpty())
+        {
+            return null;
+        }
+        else
+        {
+            return  StudentDTO.getAllDTO(lista);
+        }
     }
 
     @Override
