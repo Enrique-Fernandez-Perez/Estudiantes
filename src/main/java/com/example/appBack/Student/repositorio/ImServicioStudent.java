@@ -61,17 +61,23 @@ public class ImServicioStudent implements ServicioStudent
     }
 
     @Override
-    public ResponseEntity updateStudent(int id, StudentDTO sdto) {
-        if(studentRepository.existsById(id)==true){
+    public ResponseEntity updateStudent(int id, StudentDTO sdto)
+    {
+        if(studentRepository.existsById(id)==true)
+        {
             Student student = studentRepository.findById(id).get();
-            student.setNombre(sdto.getNombre());
-            student.setApellido(sdto.getApellido());
-            student.setCorreo(sdto.getCorreo());
-            student.setFecha_entrada(sdto.getFecha_entrada());
-            student.setCiudad(sdto.getCiudad());
-            student.setHoras_semanales(sdto.getHoras_semanales());
-            student.setEspecialidad(sdto.getEspecialidad());
-            student.setEstado(sdto.getEstado());
+            try
+            {
+                student.setNombre(sdto.getNombre());
+                student.setApellido(sdto.getApellido());
+                student.setCorreo(sdto.getCorreo());
+                student.setFecha_entrada(sdto.getFecha_entrada());
+                student.setCiudad(sdto.getCiudad());
+                student.setHoras_semanales(sdto.getHoras_semanales());
+                student.setEspecialidad(sdto.getEspecialidad());
+                student.setEstado(sdto.getEstado());
+            }
+            catch (Exception e){System.err.println(e.getMessage());}
 
             studentRepository.saveAndFlush(student);
            return ResponseEntity.ok().build();

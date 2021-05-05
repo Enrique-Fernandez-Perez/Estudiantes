@@ -3,6 +3,7 @@ package com.example.appBack.Student.Entity;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
@@ -12,9 +13,9 @@ import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class Student {
 
     @Id
@@ -52,4 +53,67 @@ public class Student {
         this.estado=studentDTO.getEstado();
     }
 
+    public void setNombre(String nombre)
+    {
+        if(nombre.trim().length() != 0)
+        {
+            this.nombre = nombre;
+        }
+    }
+
+    public void setApellido(String apellidos)
+    {
+        if(apellidos.trim().length() != 0)
+        {
+            this.apellido = apellidos;
+        }
+    }
+
+    public void setCorreo(String correo)
+    {
+        if(correo.trim().length() != 0)
+        {
+            this.correo = correo;
+        }
+    }
+
+    public void setFecha_entrada(Date fecha_entrada)
+    {
+        if(fecha_entrada != null)
+        {
+            this.fecha_entrada = fecha_entrada;
+        }
+    }
+
+    public void setCiudad(String ciudad)
+    {
+        if(ciudad.trim().length() != 0)
+        {
+            this.ciudad = ciudad;
+        }
+    }
+
+    public void setHoras_semanales(Integer horas_semanales)
+    {
+        if(horas_semanales != null)
+        {
+            this.horas_semanales = horas_semanales;
+        }
+    }
+
+    public void setEspecialidad(String especialidad)
+    {
+        if(especialidad.trim().length() != 0)
+        {
+            this.especialidad = especialidad;
+        }
+    }
+
+    public void setEstado(String estado)
+    {
+        if(estado.trim().length() != 0)
+        {
+            this.estado = estado;
+        }
+    }
 }
