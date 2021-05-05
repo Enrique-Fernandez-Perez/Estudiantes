@@ -53,8 +53,8 @@ public class StudentController {
     }
 
     @GetMapping("/getStudent/{campo}")
-    public StudentDTO getStudentConsulta(@PathVariable String campo,@RequestBody String buscar){
-        return servicioStudent.getConsulatCampo(campo,buscar);
+    public List<StudentDTO> getStudentConsulta(@RequestBody StudentDTO studentDTO){
+        return null;
     }
 
 }
