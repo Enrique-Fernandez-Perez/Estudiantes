@@ -2,6 +2,7 @@ package com.example.appBack.Student.repositorio;
 
 import com.example.appBack.Student.Entity.StudentDTO;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface ServicioStudent
@@ -18,5 +19,5 @@ public interface ServicioStudent
 
     void updateStudent(int id, StudentDTO sdto);
 
-    StudentDTO getConsulatCampo(String campo, String busca);
+    List<StudentDTO> getConsulatCampo(StudentDTO aConsultar);
 }

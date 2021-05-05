@@ -10,10 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Component
 public class ImServicioStudent implements ServicioStudent
@@ -70,8 +67,11 @@ public class ImServicioStudent implements ServicioStudent
     }
 
     @Override
-    public StudentDTO getConsulatCampo(String campo, String busca)
+    public List<StudentDTO> getConsulatCampo(StudentDTO aConsultar)
     {
+        String consulta = "";
+
+
         return null;
     }
 }
