@@ -67,7 +67,7 @@ public class ImServicioStudent implements ServicioStudent
     }
 
     @Override
-    public List<StudentDTO> getConsulatCampo(StudentDTO aConsultar)
+    public List<StudentDTO> getConsulaCampo(StudentDTO aConsultar)
     {
         String consulta = "";
 

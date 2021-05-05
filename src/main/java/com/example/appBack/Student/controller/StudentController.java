@@ -52,9 +52,10 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/getStudent/{campo}")
-    public StudentDTO getStudentConsulta(@PathVariable String campo,@RequestBody String buscar){
-        return servicioStudent.getConsulatCampo(campo,buscar);
+    @GetMapping("/getStudent")
+    public List<StudentDTO> getStudentConsulta(@RequestBody StudentDTO buscar)
+    {
+        return servicioStudent.getConsulaCampo(buscar);
     }
 
 }

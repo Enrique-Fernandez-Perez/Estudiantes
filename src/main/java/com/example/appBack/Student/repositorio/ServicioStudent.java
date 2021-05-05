@@ -19,5 +19,5 @@ public interface ServicioStudent
 
     void updateStudent(int id, StudentDTO sdto);
 
-    List<StudentDTO> getConsulatCampo(StudentDTO aConsultar);
+    List<StudentDTO> getConsulaCampo(StudentDTO aConsultar);
 }
