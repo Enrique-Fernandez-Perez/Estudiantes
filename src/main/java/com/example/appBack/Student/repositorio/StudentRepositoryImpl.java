@@ -1,4 +1,4 @@
-package com.example.appBack.Student.model;
+package com.example.appBack.Student.repositorio;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,13 +36,13 @@ public class StudentRepositoryImpl
         if(estudiante.getNombre().trim().length()!=0)
         {
             poner = estudiante.getNombre().toUpperCase().trim();
-            predicates.add(cb.like(root.get("nombre"), "%"+poner+"%"));
+            predicates.add(cb.like (root.get("nombre"), "%"+poner+"%"));
         }
 
         if(estudiante.getApellido().trim().length()!=0)
         {
             poner = estudiante.getApellido().toUpperCase().trim();
-            predicates.add(cb.like(root.get("apellido"), "%"+poner+"%"));
+            predicates.add(cb.equal (root.get("apellido"), "%"+poner+"%"));
         }
 
         if(estudiante.getCorreo().trim().length()!=0)

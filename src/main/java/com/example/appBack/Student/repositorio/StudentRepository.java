@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student,Integer>
 {
-    public List<StudentDTO> getData(StudentDTO consulta);
+    public List<StudentDTO> getQuery(StudentDTO consulta);
 }

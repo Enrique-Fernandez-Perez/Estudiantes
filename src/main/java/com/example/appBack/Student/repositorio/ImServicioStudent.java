@@ -1,4 +1,4 @@
-package com.example.appBack.Student.model;
+package com.example.appBack.Student.repositorio;
 
 import com.example.appBack.Student.Entity.Student;
 import com.example.appBack.Student.Entity.StudentDTO;
@@ -57,11 +57,6 @@ public class ImServicioStudent implements ServicioStudent
     }
 
     @Override
-    public void deleteStudent(StudentDTO sdto) {
-
-    }
-
-    @Override
     public void updateStudent(int id, StudentDTO sdto) {
 
     }
@@ -69,9 +64,6 @@ public class ImServicioStudent implements ServicioStudent
     @Override
     public List<StudentDTO> getConsulaCampo(StudentDTO aConsultar)
     {
-        String consulta = "";
-
-
-        return null;
+        return studentRepository.getQuery(aConsultar);
     }
 }

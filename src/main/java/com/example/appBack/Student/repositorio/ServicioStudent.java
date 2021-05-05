@@ -15,8 +15,6 @@ public interface ServicioStudent
 
     void deleteStudent(int id);
 
-    void deleteStudent(StudentDTO sdto);
-
     void updateStudent(int id, StudentDTO sdto);
 
     List<StudentDTO> getConsulaCampo(StudentDTO aConsultar);
