@@ -17,4 +17,6 @@ public interface ServicioStudent
     void deleteStudent(StudentDTO sdto);
 
     void updateStudent(int id, StudentDTO sdto);
+
+    StudentDTO getConsulatCampo(String campo, String busca);
 }
