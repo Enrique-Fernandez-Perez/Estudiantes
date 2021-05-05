@@ -48,21 +48,4 @@ public class StudentDTO{
     }
 
 
-    public static HashMap<String,String> devolverNull(StudentDTO student){
-        HashMap<String,String> listaNull = new HashMap<>();
-
-        if(student.getNombre().trim().length()!=0){listaNull.put("nombre", student.getNombre());}
-        if(student.getApellido().trim().length()!=0){listaNull.put("apellido", student.getApellido());}
-        if(student.getCorreo().trim().length()!=0){listaNull.put("correo", student.getCorreo());}
-        if(student.getFecha_entrada().toString().trim().length()!=0){listaNull.put("fecha_entrada", student.getApellido().toString());}
-        if(student.getCiudad().trim().length()!=0){listaNull.put("ciudad", student.getCiudad());}
-        if(student.getHoras_semanales()!=null){listaNull.put("horas_semanales", student.getHoras_semanales().toString());}
-        if(student.getEspecialidad().trim().length()!=0){listaNull.put("especialidad", student.getEspecialidad());}
-        if(student.getEstado().trim().length()!=0){listaNull.put("estado", student.getEstado());}
-
-        return listaNull;
-
-    }
-
-
 }

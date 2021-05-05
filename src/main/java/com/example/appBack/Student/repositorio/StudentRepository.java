@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student,Integer>
 {
-    @Query("select * from Student where consulta")
-    public List<Student> findByTipo(String consulta);
+    @Query
+    public List<StudentDTO> getConsulta(StudentDTO consulta);
 }
