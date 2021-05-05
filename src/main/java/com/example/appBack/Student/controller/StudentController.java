@@ -1,16 +1,12 @@
 package com.example.appBack.Student.controller;
 
-import com.example.appBack.Student.Entity.Student;
 import com.example.appBack.Student.Entity.StudentDTO;
 import com.example.appBack.Student.repositorio.ServicioStudent;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.support.Repositories;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-import javax.persistence.PostRemove;
 
 @RestController
 public class StudentController {

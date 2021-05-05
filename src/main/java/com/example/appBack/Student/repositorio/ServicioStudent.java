@@ -1,21 +1,21 @@
 package com.example.appBack.Student.repositorio;
 
 import com.example.appBack.Student.Entity.StudentDTO;
+import org.springframework.http.ResponseEntity;
 
-import java.util.HashMap;
 import java.util.List;
 
 public interface ServicioStudent
 {
-    void addStudent(StudentDTO sdto);
+    ResponseEntity addStudent(StudentDTO sdto);
 
     StudentDTO getStudent(int id);
 
     List<StudentDTO> getAll();
 
-    void deleteStudent(int id);
+    ResponseEntity deleteStudent(int id);
 
-    void updateStudent(int id, StudentDTO sdto);
+    ResponseEntity updateStudent(int id, StudentDTO sdto);
 
     List<StudentDTO> getConsulaCampo(StudentDTO aConsultar);
 }
