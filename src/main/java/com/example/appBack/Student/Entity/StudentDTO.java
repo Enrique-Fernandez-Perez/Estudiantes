@@ -23,7 +23,7 @@ public class StudentDTO{
 
     private String ciudad;
 
-    private Date horas_semanales;
+    private Integer horas_semanales;
 
     private String especialidad;
 
