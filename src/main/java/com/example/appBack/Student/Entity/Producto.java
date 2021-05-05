@@ -26,6 +26,7 @@ public class Producto implements Serializable {
     public Producto() {
 
     }
+
     public Producto(ProductoDto pdto) {
         this.nombre = pdto.getNombre();
     }
