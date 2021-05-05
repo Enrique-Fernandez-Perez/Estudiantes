@@ -5,11 +5,14 @@ import com.example.appBack.Student.Entity.StudentDTO;
 import com.example.appBack.Student.repositorio.ServicioStudent;
 import com.example.appBack.Student.repositorio.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class ImServicioStudent implements ServicioStudent
 {
     @Autowired
@@ -35,8 +38,12 @@ public class ImServicioStudent implements ServicioStudent
     }
 
     @Override
-    public List<StudentDTO> getAll() {
-        return null;
+    public List<StudentDTO> getAll()
+    {
+        List<Student> lista = studentRepository.findAll();
+        List<StudentDTO> devolver = new ArrayList<>();
+        lista.forEach(s -> devolver.add(new StudentDTO(s)));
+        return devolver;
     }
 
     @Override
