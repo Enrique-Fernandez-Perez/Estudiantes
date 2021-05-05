@@ -5,15 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
+import java.util.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudentDTO{
-
-    private Integer id;
 
     private String nombre;
 
@@ -33,16 +30,21 @@ public class StudentDTO{
     private String estado;
 
 
-    public StudentDTO(Student student){
-        this.id=student.getId();
-        this.nombre=student.getNombre();
-        this.apellido=student.getApellido();
-        this.correo=student.getCorreo();
-        this.fecha_entrada=student.getFecha_entrada();
-        this.ciudad=student.getCiudad();
-        this.horas_semanales=student.getHoras_semanales();
-        this.especialidad=student.getEspecialidad();
-        this.estado=student.getEstado();
+    public static StudentDTO getDTO(Student student){
+        return new StudentDTO(student.getNombre(),
+                student.getApellido(),
+                student.getCorreo(),
+                student.getFecha_entrada(),
+                student.getCiudad(),
+                student.getHoras_semanales(),
+                student.getEspecialidad(),
+                student.getEstado());
+    }
+
+    public static List<StudentDTO> getAllDTO(List<Student> listStudent){
+        List<StudentDTO> devolver = new ArrayList<>();
+        listStudent.stream().map(student -> devolver.add(getDTO(student)));
+        return devolver;
     }
 
 

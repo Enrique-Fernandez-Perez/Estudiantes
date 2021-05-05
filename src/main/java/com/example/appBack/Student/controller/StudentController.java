@@ -17,7 +17,10 @@ public class StudentController {
     ServicioStudent servicioStudent;
 
     @PostMapping
-
+    public ResponseEntity addStudent(StudentDTO studentDTO){
+        servicioStudent.addStudent(studentDTO);
+        return ResponseEntity.ok().build();
+    }
 
     @GetMapping
 

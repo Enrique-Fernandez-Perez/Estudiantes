@@ -31,7 +31,7 @@ public class ImServicioStudent implements ServicioStudent
         Optional<Student> estudiante = studentRepository.findById(id);
         if(!estudiante.isEmpty())
         {
-            return new StudentDTO(estudiante.get());
+            //return new StudentDTO(estudiante.get());
         }
 
         return null;
@@ -42,7 +42,7 @@ public class ImServicioStudent implements ServicioStudent
     {
         List<Student> lista = studentRepository.findAll();
         List<StudentDTO> devolver = new ArrayList<>();
-        lista.forEach(s -> devolver.add(new StudentDTO(s)));
+       // lista.forEach(s -> devolver.add(new StudentDTO(s)));
         return devolver;
     }
 
