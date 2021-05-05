@@ -1,12 +1,13 @@
 package com.example.appBack;
 
+import com.example.appBack.Student.Entity.Student;
 import com.example.appBack.Student.repositorio.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-//import java.sql.Date;
+import java.sql.Date;
 
 @SpringBootApplication
 public class AppBackApplication implements CommandLineRunner
