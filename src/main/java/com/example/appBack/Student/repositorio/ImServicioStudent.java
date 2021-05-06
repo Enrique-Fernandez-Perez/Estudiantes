@@ -157,6 +157,7 @@ public class ImServicioStudent implements ServicioStudent
             String apellido = insertar.getApellido();
             String correo = insertar.getCorreo();
             Date fecha_entrada = insertar.getFecha_entrada();
+            Date fecha_finalizacion = insertar.getFecha_finalizacion();
             String ciudad = insertar.getCiudad();
             Integer horas_semanales = insertar.getHoras_semanales();
             String especialidad = insertar.getEspecialidad();
@@ -185,7 +186,7 @@ public class ImServicioStudent implements ServicioStudent
                         this.comprobar.setCorreo(correo);
                         break;
                     case ("fecha_entrada"):
-                        if (!compararFechas(fecha_entrada, fecha_entrada))
+                        if (!compararFechas(fecha_entrada, fecha_finalizacion))
                         {
                             return;
                         }
@@ -222,6 +223,7 @@ public class ImServicioStudent implements ServicioStudent
             if(comprobarString(id))
             {
                 devolver.setId(id);
+                studentRepository.saveAndFlush(devolver);
                 return devolver;
             }
 
@@ -229,7 +231,7 @@ public class ImServicioStudent implements ServicioStudent
             if(!recogida.isEmpty())
             {
                 devolver = new Student(recogida.get(0));
-                //return true;
+                return devolver;
             }
             else
             {
@@ -240,8 +242,6 @@ public class ImServicioStudent implements ServicioStudent
             System.err.println(e.getMessage()+"");
             return null;
         }
-        //return false;
-        return devolver;
     }
 
     @Override
@@ -319,6 +319,10 @@ public class ImServicioStudent implements ServicioStudent
 
     private boolean compararFechas(Date fecha1, Date fecha2)
     {
+        if(fecha1.before(fecha2))
+        {
+            return true;
+        }
         return false;
     }
 
