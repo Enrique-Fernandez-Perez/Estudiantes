@@ -12,13 +12,13 @@ public interface ServicioStudent
 {
     ResponseEntity addStudent(StudentDTO sdto);
 
-    StudentDTO getStudent(int id);
+    StudentDTO getStudent(String id);
 
     List<StudentDTO> getAll();
 
-    ResponseEntity deleteStudent(int id);
+    ResponseEntity deleteStudent(String id);
 
-    ResponseEntity updateStudent(int id, StudentDTO sdto);
+    ResponseEntity updateStudent(String id, StudentDTO sdto);
 
     List<StudentDTO> getConsulaCampo(StudentDTO aConsultar);
 

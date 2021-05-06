@@ -28,7 +28,7 @@ public class ImServicioStudent implements ServicioStudent
     }
 
     @Override
-    public StudentDTO getStudent(int id)
+    public StudentDTO getStudent(String id)
     {
         Optional<Student> estudiante = studentRepository.findById(id);
         if(!estudiante.isEmpty())
@@ -54,7 +54,7 @@ public class ImServicioStudent implements ServicioStudent
     }
 
     @Override
-    public ResponseEntity deleteStudent(int id) {
+    public ResponseEntity deleteStudent(String id) {
         ResponseEntity respuesta=null;
         if(studentRepository.existsById(id)==true){
            studentRepository.deleteById(id);
@@ -65,7 +65,7 @@ public class ImServicioStudent implements ServicioStudent
     }
 
     @Override
-    public ResponseEntity updateStudent(int id, StudentDTO sdto)
+    public ResponseEntity updateStudent(String id, StudentDTO sdto)
     {
         if(studentRepository.existsById(id)==true)
         {
@@ -126,7 +126,7 @@ public class ImServicioStudent implements ServicioStudent
                 columnas.remove(0);
             }
 
-            Optional<Student> st = studentRepository.findById(0);
+            Optional<Student> st = studentRepository.findById("");
             if(!st.isEmpty())
             {
                 this.comprobar = StudentDTO.getStudentDTO(st.get());
@@ -219,23 +219,31 @@ public class ImServicioStudent implements ServicioStudent
                 }
             });
 
-            devolver = new Student(this.comprobar);
+            List<StudentDTO> recogida = studentRepository.getQuery(this.comprobar);
+
             if(comprobarString(id))
             {
+                devolver = new Student(this.comprobar);
+
+                if(recogida.isEmpty())
+                {
+                    //studentRepository.saveAndFlush(devolver);
+                    return null;
+                }
+                //return devolver;
                 devolver.setId(id);
-                studentRepository.saveAndFlush(devolver);
                 return devolver;
             }
 
-            List<StudentDTO> recogida = studentRepository.getQuery(this.comprobar);
-            if(!recogida.isEmpty())
+            if(recogida.isEmpty())
             {
-                devolver = new Student(recogida.get(0));
+                devolver = new Student(this.comprobar);
                 return devolver;
             }
             else
             {
-                return null;
+                devolver = new Student(recogida.get(0));
+                return devolver;
             }
         }catch (Exception e)
         {
