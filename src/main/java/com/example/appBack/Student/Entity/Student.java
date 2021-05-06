@@ -61,7 +61,7 @@ public class Student {
         }
     }
 
-    public boolean setComprobar(Object valor, String campo)
+    public boolean setComprobar()
     {
         if(nombre.trim().length() != 0 && nombre != null)
         {
