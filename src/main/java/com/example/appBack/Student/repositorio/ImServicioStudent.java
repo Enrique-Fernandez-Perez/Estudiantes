@@ -91,4 +91,163 @@ public class ImServicioStudent implements ServicioStudent
     {
         return studentRepository.getQuery(aConsultar);
     }
+
+    @Override
+    public Student getCompararValores(Optional<StudentDTO> insertado, ArrayList<String> columnas)
+    {
+        String id = "";
+
+        StudentDTO comprobar = new StudentDTO();
+
+        StudentDTO insertar = new StudentDTO();
+
+        if(insertado.isEmpty())
+        {
+            return null;
+        }
+        else
+        {
+            insertar = insertado.get();
+        }
+
+        if(columnas.isEmpty()){return null;}
+
+        if(columnas.get(0).equalsIgnoreCase("id"))
+        {
+            id = columnas.get(1);
+            for(int i =0; i != 2; i++)
+            {
+                columnas.remove(0);
+            }
+        }
+        try {
+            if (columnas.get(0).equalsIgnoreCase("borrar")) {
+                int fin = Integer.parseInt(columnas.get(1));//cuantos campos no quieress cnsultar
+                int posicion = Integer.parseInt(columnas.get(2));//a partir de que campo no quieres consultar
+                for (int i = 0; i != 3; i++) {
+                    columnas.remove(0);
+                }
+
+                for (int i = 0; i != fin; i++) {
+                    columnas.remove(posicion);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            System.err.println(""+e.getMessage());
+            System.err.println(""+e.getCause());
+        }
+
+        try
+        {
+            String nombre = insertar.getNombre();
+            String apellido = insertar.getApellido();
+            String correo = insertar.getCorreo();
+            Date fecha_entrada = insertar.getFecha_entrada();
+            String ciudad = insertar.getCiudad();
+            Integer horas_semanales = insertar.getHoras_semanales();
+            String especialidad = insertar.getEspecialidad();
+            String estado = insertar.getEstado();
+
+            columnas.forEach(columna ->
+            {
+                switch (columna)
+                {
+                    case ("nombre"):
+                        break;
+                    /**if (isStringNull(nombre))
+                    {
+                        comprobar.setNombre(nombre);
+                    }
+
+                    if (isStringNull(apellido))
+                    {
+                        comprobar.setApellido(apellido);
+                    }
+
+                    if (isStringNull(correo))
+                    {
+                        comprobar.setCorreo(correo);
+                    }
+
+                    if (isNull(fecha_entrada))
+                    {
+                        comprobar.setFecha_entrada(fecha_entrada);
+                    }
+
+                    if (isStringNull(ciudad))
+                    {
+                        comprobar.setCiudad(ciudad);
+                    }
+
+                    if (isNull(horas_semanales))
+                    {
+                        comprobar.setHoras_semanales(horas_semanales);
+                    }
+
+                    if (isStringNull(especialidad))
+                    {
+                        comprobar.setEspecialidad(especialidad);
+                    }
+
+                    if (isStringNull(estado))
+                    {
+                        comprobar.setEstado(estado);
+                    }*/
+                }
+
+            });
+
+            List recogida = studentRepository.getQuery(comprobar);
+            if(!recogida.isEmpty())
+            {
+                //return true;
+            }
+        }catch (Exception e)
+        {
+            System.err.println(e.getMessage()+"");
+        }
+        //return false;
+        return null;
+    }
+
+    @Override
+    public ArrayList<String> getAllColums()
+    {
+        return null;
+    }
+
+    @Override
+    public ArrayList<String> getAllColums(String id) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<String> getColum(String numCampos, String posicionPrimerCampo) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<String> getColum(String id, String numCampos, String posicionPrimerCampo) {
+        return null;
+    }
+
+    /**private boolean isStringNull(String str)
+    {
+        if (str != null && str.trim().length() != 0)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isNull(Object str)
+    {
+        if (str != null)
+        {
+            return false;
+        }
+        return true;
+    }*/
 }

@@ -5,6 +5,8 @@ import com.example.appBack.Student.repositorio.ServicioStudent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -15,15 +17,14 @@ public class StudentController {
     ServicioStudent servicioStudent;
 
     @PostMapping("/addStudent")
-    public ResponseEntity addStudent(@RequestBody StudentDTO studentDTO){
+    public ResponseEntity addStudent(@RequestBody StudentDTO studentDTO)
+    {
         servicioStudent.addStudent(studentDTO);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/getStudent/{id}")
-    public StudentDTO getStudentById(@PathVariable int id){
-        return servicioStudent.getStudent(id);
-    }
+    public StudentDTO getStudentById(@PathVariable int id){return servicioStudent.getStudent(id);}
 
     @GetMapping("/getStudents")
     public List<StudentDTO> getAllStudents(){

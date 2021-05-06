@@ -80,6 +80,8 @@ public class StudentRepositoryImpl
                predicates.add(cb.like(root.get("especialidad"), poner));
            }
 
+           Long l = Date.parse("20/2/2021");
+
             query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
             List<Student> lista = new ArrayList<>();
             lista.addAll(entityManager.createQuery(query).getResultList());
