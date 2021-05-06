@@ -32,8 +32,8 @@ public class StudentRepositoryImpl
 
             String poner = "";//para recoger datos y limpieza visual de codigo
 
-            //if (estudianteDto.getNombre() != null  && estudianteDto.getNombre().trim().length() != 0) {
-            if (isStringNull(estudianteDto.getNombre())) {
+            if (estudianteDto.getNombre() != null && estudianteDto.getNombre().trim().length() != 0)
+            {
                 poner = estudianteDto.getNombre().trim();
                 predicates.add(cb.like(root.get("nombre"), "%" + poner + "%"));
             }

@@ -55,7 +55,7 @@ public class Student {
 
     public void setNombre(String nombre)
     {
-        if(nombre.trim().length() != 0)
+        if(nombre.trim().length() != 0 && nombre != null)
         {
             this.nombre = nombre;
         }
@@ -63,7 +63,7 @@ public class Student {
 
     public void setApellido(String apellidos)
     {
-        if(apellidos.trim().length() != 0)
+        if(apellidos.trim().length() != 0 && apellidos != null)
         {
             this.apellido = apellidos;
         }
@@ -71,7 +71,7 @@ public class Student {
 
     public void setCorreo(String correo)
     {
-        if(correo.trim().length() != 0)
+        if(correo.trim().length() != 0 && correo != null)
         {
             this.correo = correo;
         }
@@ -87,7 +87,7 @@ public class Student {
 
     public void setCiudad(String ciudad)
     {
-        if(ciudad.trim().length() != 0)
+        if(ciudad.trim().length() != 0 && ciudad != null)
         {
             this.ciudad = ciudad;
         }
@@ -103,7 +103,7 @@ public class Student {
 
     public void setEspecialidad(String especialidad)
     {
-        if(especialidad.trim().length() != 0)
+        if(especialidad.trim().length() != 0 && especialidad != null)
         {
             this.especialidad = especialidad;
         }
@@ -111,7 +111,7 @@ public class Student {
 
     public void setEstado(String estado)
     {
-        if(estado.trim().length() != 0)
+        if(estado.trim().length() != 0 && estado != null)
         {
             this.estado = estado;
         }
