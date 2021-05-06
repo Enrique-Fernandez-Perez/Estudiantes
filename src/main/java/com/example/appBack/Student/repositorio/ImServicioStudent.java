@@ -33,7 +33,7 @@ public class ImServicioStudent implements ServicioStudent
         Optional<Student> estudiante = studentRepository.findById(id);
         if(!estudiante.isEmpty())
         {
-            return StudentDTO.getDTO(estudiante.get());
+            return StudentDTO.getStudentDTO(estudiante.get());
         }
 
         return null;
@@ -129,7 +129,7 @@ public class ImServicioStudent implements ServicioStudent
             Optional<Student> st = studentRepository.findById(0);
             if(!st.isEmpty())
             {
-                this.comprobar = StudentDTO.getDTO(st.get());
+                this.comprobar = StudentDTO.getStudentDTO(st.get());
             }
         }
         try {

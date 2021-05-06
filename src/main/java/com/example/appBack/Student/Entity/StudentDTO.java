@@ -44,8 +44,6 @@ public class StudentDTO {
     @NotNull
     private Date fecha_finalizacion;
 
-
-
     public static StudentDTO getStudentDTO(Student student){
         return new StudentDTO(student.getNombre(),
                 student.getApellido(),
@@ -56,8 +54,8 @@ public class StudentDTO {
                 student.getEspecialidad(),
                 student.getEstado(),
                 student.getCorreo_trabajo(),
-                student.getComentarios()),
-                student.getFecha_finalizacion();
+                student.getComentarios(),
+                student.getFecha_finalizacion());
     }
 
     public static List<StudentDTO> getAllDTO(List<Student> listStudent){
