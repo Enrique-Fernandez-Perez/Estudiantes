@@ -38,6 +38,7 @@ public class StudentInputDTO {
     @NotNull
     private Date fecha_creacion;
 
+    @NotNull
     private Date fecha_finalizacion;
 
 }

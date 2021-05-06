@@ -21,6 +21,7 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private String id;
 
     @NotNull
@@ -29,17 +30,24 @@ public class Student {
     @NotNull
     private String apellido;
 
+    @NotNull
     private String correo;
 
+    @NotNull
     private Date fecha_entrada;
 
+    @NotNull
     private String ciudad;
 
+    @NotNull
     private Integer horas_semanales;
 
+    @NotNull
     private String especialidad;
 
+    @NotNull
     private String estado;
+
     @NotNull
     private String correo_trabajo;
 

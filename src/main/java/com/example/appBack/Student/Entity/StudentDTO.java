@@ -15,21 +15,28 @@ import java.util.List;
 @AllArgsConstructor
 public class StudentDTO {
 
+    @NotNull
     private String nombre;
 
+    @NotNull
     private String apellido;
 
+    @NotNull
     private String correo;
 
     @JsonFormat(pattern = "MM/dd/yyyy")
     private Date fecha_entrada;
 
+    @NotNull
     private String ciudad;
 
+    @NotNull
     private Integer horas_semanales;
 
+    @NotNull
     private String especialidad;
 
+    @NotNull
     private String estado;
 
     //--------------------NUEVOS-----------------------

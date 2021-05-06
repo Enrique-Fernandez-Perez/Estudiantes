@@ -7,32 +7,33 @@ import java.util.Date;
 public class StudentSearchDTO {
 
     @NotNull
-    private String Surname;
+    private String nombre;
 
     @NotNull
-    private String company_email;
+    private String correo_trabajo;
 
     @NotNull
-    private String personal_email;
+    private String correo_personal;
 
     @NotNull
-    private String city;
+    private String ciudad;
 
     @NotNull
-    private Integer numHoursWeek;
+    private Integer horas_semanales;
 
     @NotNull
-    private String coments;
+    private String comentarios;
 
     //Añadir Branch
 
     @NotNull
-    private Boolean active;
+    private Boolean estado;
 
     @NotNull
-    private Date createdDate;
+    private Date fecha_creacion;
 
-    private Date terminationDate;
+    @NotNull
+    private Date fecha_finalizacion;
 
 
 }
