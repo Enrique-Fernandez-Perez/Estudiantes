@@ -61,6 +61,15 @@ public class Student {
         }
     }
 
+    public boolean setComprobar(Object valor, String campo)
+    {
+        if(nombre.trim().length() != 0 && nombre != null)
+        {
+            this.nombre = nombre;
+        }
+        return false;
+    }
+
     public void setApellido(String apellidos)
     {
         if(apellidos.trim().length() != 0 && apellidos != null)
