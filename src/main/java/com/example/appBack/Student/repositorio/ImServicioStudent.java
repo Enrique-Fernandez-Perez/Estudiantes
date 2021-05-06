@@ -166,50 +166,54 @@ public class ImServicioStudent implements ServicioStudent
             {
                 switch (columna) {
                     case ("nombre"):
-                        if (comprobarString(nombre))
-                        {
-                            this.comprobar.setNombre(nombre);
-                        }
-                        break;
-                    case ("apellido"):
-                        if (comprobarString(apellido)) {
-                            this.comprobar.setApellido(apellido);
-                        }
-                        break;
-                    case ("correo"):
-                        if (comprobarString(correo)) {
-                            this.comprobar.setCorreo(correo);
-                        }
-                        break;
-                    case ("fecha_entrada"):
-                        if (compararFechas(fecha_entrada, fecha_entrada))
-                        {
-                            this.comprobar.setFecha_entrada(fecha_entrada);
-                        }
-                        else
+                        if (!comprobarString(nombre))
                         {
                             return;
                         }
+                        this.comprobar.setNombre(nombre);
+                        break;
+                    case ("apellido"):
+                        if (!comprobarString(apellido)) {
+                            return;
+                        }
+                        this.comprobar.setApellido(apellido);
+                        break;
+                    case ("correo"):
+                        if (!comprobarString(correo)) {
+                            return;
+                        }
+                        this.comprobar.setCorreo(correo);
+                        break;
+                    case ("fecha_entrada"):
+                        if (!compararFechas(fecha_entrada, fecha_entrada))
+                        {
+                            return;
+                        }
+                        this.comprobar.setFecha_entrada(fecha_entrada);
                         break;
                     case ("ciudad"):
-                        if (comprobarString(ciudad)) {
-                            this.comprobar.setCiudad(ciudad);
+                        if (!comprobarString(ciudad)) {
+                            return;
                         }
+                        this.comprobar.setCiudad(ciudad);
                         break;
                     case ("horas_semanales"):
-                        if (comprobarNumbers(horas_semanales)) {
-                            this.comprobar.setHoras_semanales(horas_semanales);
+                        if (!comprobarNumbers(horas_semanales)) {
+                            return;
                         }
+                        this.comprobar.setHoras_semanales(horas_semanales);
                         break;
                     case ("especialidad"):
-                        if (comprobarString(especialidad)) {
-                            this.comprobar.setEspecialidad(especialidad);
+                        if (!comprobarString(especialidad)) {
+                            return;
                         }
+                        this.comprobar.setEspecialidad(especialidad);
                         break;
                     case ("estado"):
-                        if (comprobarString(estado)) {
-                            this.comprobar.setEspecialidad(estado);
+                        if (!comprobarString(estado)) {
+                            return;
                         }
+                        this.comprobar.setEspecialidad(estado);
                         break;
                 }
             });
@@ -243,19 +247,18 @@ public class ImServicioStudent implements ServicioStudent
     @Override
     public ArrayList<String> getAllColums()
     {
-        campos.clear();
-        campos.removeAll(campos);
+        ArrayList<String> campos2 = new ArrayList<>();
 
-        campos.add("nombre");
-        campos.add("apellido");
-        campos.add("correo");
-        campos.add("fecha_entrada");
-        campos.add("ciudad");
-        campos.add("horas_semanales");
-        campos.add("especialidad");
-        campos.add("estado");
+        campos2.add("nombre");
+        campos2.add("apellido");
+        campos2.add("correo");
+        campos2.add("fecha_entrada");
+        campos2.add("ciudad");
+        campos2.add("horas_semanales");
+        campos2.add("especialidad");
+        campos2.add("estado");
 
-        return campos;
+        return campos2;
     }
 
     @Override
@@ -267,42 +270,28 @@ public class ImServicioStudent implements ServicioStudent
         campos.add("id");
         campos.add(id);
 
-        campos.add("nombre");
-        campos.add("apellido");
-        campos.add("correo");
-        campos.add("fecha_entrada");
-        campos.add("ciudad");
-        campos.add("horas_semanales");
-        campos.add("especialidad");
-        campos.add("estado");
+        campos.addAll(getAllColums());
 
         return campos;
     }
 
     @Override
-    public ArrayList<String> getColum(String numCampos, String posicionPrimerCampo)
+    public ArrayList<String> getColum(Integer numCampos, Integer posicionPrimerCampo)
     {
         campos.clear();
         campos.removeAll(campos);
 
         campos.add("borrar");
-        campos.add(numCampos);
-        campos.add(posicionPrimerCampo);
+        campos.add(""+numCampos);
+        campos.add(""+posicionPrimerCampo);
 
-        campos.add("nombre");
-        campos.add("apellido");
-        campos.add("correo");
-        campos.add("fecha_entrada");
-        campos.add("ciudad");
-        campos.add("horas_semanales");
-        campos.add("especialidad");
-        campos.add("estado");
+        campos.addAll(getAllColums());
 
         return campos;
     }
 
     @Override
-    public ArrayList<String> getColum(String id, String numCampos, String posicionPrimerCampo)
+    public ArrayList<String> getColum(String id, Integer numCampos, Integer posicionPrimerCampo)
     {
         campos.clear();
         campos.removeAll(campos);
@@ -311,17 +300,10 @@ public class ImServicioStudent implements ServicioStudent
         campos.add(id);
 
         campos.add("borrar");
-        campos.add(numCampos);
-        campos.add(posicionPrimerCampo);
+        campos.add(""+numCampos);
+        campos.add(""+posicionPrimerCampo);
 
-        campos.add("nombre");
-        campos.add("apellido");
-        campos.add("correo");
-        campos.add("fecha_entrada");
-        campos.add("ciudad");
-        campos.add("horas_semanales");
-        campos.add("especialidad");
-        campos.add("estado");
+        campos.addAll(getAllColums());
 
         return campos;
     }

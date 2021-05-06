@@ -28,7 +28,7 @@ public interface ServicioStudent
 
     ArrayList<String> getAllColums(String id);
 
-    ArrayList<String> getColum(String numCampos, String posicionPrimerCampo);
+    ArrayList<String> getColum(Integer numCampos, Integer posicionPrimerCampo);
 
-    ArrayList<String> getColum(String id, String numCampos, String posicionPrimerCampo);
+    ArrayList<String> getColum(String id, Integer numCampos, Integer posicionPrimerCampo);
 }
