@@ -37,7 +37,7 @@ public class StudentRepositoryImpl
                 predicates.add(cb.like(root.get("nombre"), "%" + poner + "%"));
             }
 
-            if (estudianteDto.getApellido().trim().length() != 0) {
+            /**if (estudianteDto.getApellido().trim().length() != 0) {
                 poner = estudianteDto.getApellido().trim();
                 predicates.add(cb.equal(root.get("apellido"), "%" + poner + "%"));
             }
@@ -70,7 +70,7 @@ public class StudentRepositoryImpl
             if (estudianteDto.getEstado().trim().length() != 0) {
                 poner = "%" + estudianteDto.getEstado().trim() + "%";
                 predicates.add(cb.like(root.get("especialidad"), poner));
-            }
+            }*/
 
             query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
             List<Student> lista = new ArrayList<>();
