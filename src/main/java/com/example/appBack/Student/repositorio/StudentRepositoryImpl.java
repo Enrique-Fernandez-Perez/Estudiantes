@@ -30,11 +30,7 @@ public class StudentRepositoryImpl
 
             List<Predicate> predicates = new ArrayList<>();
 
-            HashMap<String, String> listaNull = new HashMap<>();
-
-            String poner = "";//para recoger datos y limpieza de codigo
-
-            //Student estudiante = new Student(estudianteDto);
+            String poner = "";//para recoger datos y limpieza visual de codigo
 
             if (estudianteDto.getNombre().trim().length() != 0) {
                 poner = estudianteDto.getNombre().trim();
@@ -51,8 +47,7 @@ public class StudentRepositoryImpl
                 predicates.add(cb.like(root.get("correo"), "%" + poner + "%"));
             }
 
-            poner = estudianteDto.getFecha_entrada().toString().trim();
-            if (poner.length() != 0) {
+            if (estudianteDto.getFecha_entrada() != null) {
                 Date fecha = estudianteDto.getFecha_entrada();
                 predicates.add(cb.equal(root.get("fecha_entrada"), fecha));
             }
@@ -75,7 +70,6 @@ public class StudentRepositoryImpl
             if (estudianteDto.getEstado().trim().length() != 0) {
                 poner = "%" + estudianteDto.getEstado().trim() + "%";
                 predicates.add(cb.like(root.get("especialidad"), poner));
-                listaNull.put("estado", estudianteDto.getEstado());
             }
 
             query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
