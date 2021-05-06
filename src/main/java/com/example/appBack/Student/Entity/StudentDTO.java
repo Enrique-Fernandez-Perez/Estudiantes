@@ -1,16 +1,19 @@
 package com.example.appBack.Student.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentDTO{
+public class StudentDTO {
 
     private String nombre;
 
@@ -29,8 +32,21 @@ public class StudentDTO{
 
     private String estado;
 
+    //--------------------NUEVOS-----------------------
+    @NotNull
+    private String correo_trabajo;
 
-    public static StudentDTO getDTO(Student student){
+    @NotNull
+    private String comentarios;
+
+    //Branch branch
+
+    @NotNull
+    private Date fecha_finalizacion;
+
+
+
+    public static StudentDTO getStudentDTO(Student student){
         return new StudentDTO(student.getNombre(),
                 student.getApellido(),
                 student.getCorreo(),
@@ -38,12 +54,15 @@ public class StudentDTO{
                 student.getCiudad(),
                 student.getHoras_semanales(),
                 student.getEspecialidad(),
-                student.getEstado());
+                student.getEstado(),
+                student.getCorreo_trabajo(),
+                student.getComentarios()),
+                student.getFecha_finalizacion();
     }
 
     public static List<StudentDTO> getAllDTO(List<Student> listStudent){
         List<StudentDTO> devolver = new ArrayList<>();
-        listStudent.forEach(student -> devolver.add(getDTO(student)));
+        listStudent.forEach(student -> devolver.add(getStudentDTO(student)));
         return devolver;
     }
 
