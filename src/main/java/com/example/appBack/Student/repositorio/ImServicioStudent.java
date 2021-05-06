@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.*;
 
 @Component
@@ -13,6 +14,9 @@ public class ImServicioStudent implements ServicioStudent
 {
     @Autowired
     StudentRepository studentRepository;
+
+    private ArrayList<String> campos = new ArrayList<String>();
+    private StudentDTO comprobar = new StudentDTO();
 
     @Override
     public ResponseEntity addStudent(StudentDTO sdto)
@@ -97,9 +101,11 @@ public class ImServicioStudent implements ServicioStudent
     {
         String id = "";
 
-        StudentDTO comprobar = new StudentDTO();
+        this.comprobar = new StudentDTO();
 
         StudentDTO insertar = new StudentDTO();
+
+        Student devolver;// = new Student();
 
         if(insertado.isEmpty())
         {
@@ -118,6 +124,12 @@ public class ImServicioStudent implements ServicioStudent
             for(int i =0; i != 2; i++)
             {
                 columnas.remove(0);
+            }
+
+            Optional<Student> st = studentRepository.findById(0);
+            if(!st.isEmpty())
+            {
+                this.comprobar = StudentDTO.getDTO(st.get());
             }
         }
         try {
@@ -152,85 +164,193 @@ public class ImServicioStudent implements ServicioStudent
 
             columnas.forEach(columna ->
             {
-                switch (columna)
-                {
+                switch (columna) {
                     case ("nombre"):
+                        if (comprobarString(nombre))
+                        {
+                            this.comprobar.setNombre(nombre);
+                        }
                         break;
-                    /**if (isStringNull(nombre))
-                    {
-                        comprobar.setNombre(nombre);
-                    }
-
-                    if (isStringNull(apellido))
-                    {
-                        comprobar.setApellido(apellido);
-                    }
-
-                    if (isStringNull(correo))
-                    {
-                        comprobar.setCorreo(correo);
-                    }
-
-                    if (isNull(fecha_entrada))
-                    {
-                        comprobar.setFecha_entrada(fecha_entrada);
-                    }
-
-                    if (isStringNull(ciudad))
-                    {
-                        comprobar.setCiudad(ciudad);
-                    }
-
-                    if (isNull(horas_semanales))
-                    {
-                        comprobar.setHoras_semanales(horas_semanales);
-                    }
-
-                    if (isStringNull(especialidad))
-                    {
-                        comprobar.setEspecialidad(especialidad);
-                    }
-
-                    if (isStringNull(estado))
-                    {
-                        comprobar.setEstado(estado);
-                    }*/
+                    case ("apellido"):
+                        if (comprobarString(apellido)) {
+                            this.comprobar.setApellido(apellido);
+                        }
+                        break;
+                    case ("correo"):
+                        if (comprobarString(correo)) {
+                            this.comprobar.setCorreo(correo);
+                        }
+                        break;
+                    case ("fecha_entrada"):
+                        if (compararFechas(fecha_entrada, fecha_entrada))
+                        {
+                            this.comprobar.setFecha_entrada(fecha_entrada);
+                        }
+                        else
+                        {
+                            return;
+                        }
+                        break;
+                    case ("ciudad"):
+                        if (comprobarString(ciudad)) {
+                            this.comprobar.setCiudad(ciudad);
+                        }
+                        break;
+                    case ("horas_semanales"):
+                        if (comprobarNumbers(horas_semanales)) {
+                            this.comprobar.setHoras_semanales(horas_semanales);
+                        }
+                        break;
+                    case ("especialidad"):
+                        if (comprobarString(especialidad)) {
+                            this.comprobar.setEspecialidad(especialidad);
+                        }
+                        break;
+                    case ("estado"):
+                        if (comprobarString(estado)) {
+                            this.comprobar.setEspecialidad(estado);
+                        }
+                        break;
                 }
-
             });
 
-            List recogida = studentRepository.getQuery(comprobar);
+            devolver = new Student(this.comprobar);
+            if(comprobarString(id))
+            {
+                devolver.setId(id);
+                return devolver;
+            }
+
+            List<StudentDTO> recogida = studentRepository.getQuery(this.comprobar);
             if(!recogida.isEmpty())
             {
+                devolver = new Student(recogida.get(0));
                 //return true;
+            }
+            else
+            {
+                return null;
             }
         }catch (Exception e)
         {
             System.err.println(e.getMessage()+"");
+            return null;
         }
         //return false;
-        return null;
+        return devolver;
     }
 
     @Override
     public ArrayList<String> getAllColums()
     {
-        return null;
+        campos.clear();
+        campos.removeAll(campos);
+
+        campos.add("nombre");
+        campos.add("apellido");
+        campos.add("correo");
+        campos.add("fecha_entrada");
+        campos.add("ciudad");
+        campos.add("horas_semanales");
+        campos.add("especialidad");
+        campos.add("estado");
+
+        return campos;
     }
 
     @Override
-    public ArrayList<String> getAllColums(String id) {
-        return null;
+    public ArrayList<String> getAllColums(String id)
+    {
+        campos.clear();
+        campos.removeAll(campos);
+
+        campos.add("id");
+        campos.add(id);
+
+        campos.add("nombre");
+        campos.add("apellido");
+        campos.add("correo");
+        campos.add("fecha_entrada");
+        campos.add("ciudad");
+        campos.add("horas_semanales");
+        campos.add("especialidad");
+        campos.add("estado");
+
+        return campos;
     }
 
     @Override
-    public ArrayList<String> getColum(String numCampos, String posicionPrimerCampo) {
-        return null;
+    public ArrayList<String> getColum(String numCampos, String posicionPrimerCampo)
+    {
+        campos.clear();
+        campos.removeAll(campos);
+
+        campos.add("borrar");
+        campos.add(numCampos);
+        campos.add(posicionPrimerCampo);
+
+        campos.add("nombre");
+        campos.add("apellido");
+        campos.add("correo");
+        campos.add("fecha_entrada");
+        campos.add("ciudad");
+        campos.add("horas_semanales");
+        campos.add("especialidad");
+        campos.add("estado");
+
+        return campos;
     }
 
     @Override
-    public ArrayList<String> getColum(String id, String numCampos, String posicionPrimerCampo) {
-        return null;
+    public ArrayList<String> getColum(String id, String numCampos, String posicionPrimerCampo)
+    {
+        campos.clear();
+        campos.removeAll(campos);
+
+        campos.add("id");
+        campos.add(id);
+
+        campos.add("borrar");
+        campos.add(numCampos);
+        campos.add(posicionPrimerCampo);
+
+        campos.add("nombre");
+        campos.add("apellido");
+        campos.add("correo");
+        campos.add("fecha_entrada");
+        campos.add("ciudad");
+        campos.add("horas_semanales");
+        campos.add("especialidad");
+        campos.add("estado");
+
+        return campos;
+    }
+
+    private boolean comprobarString(String str)
+    {
+        if (str.length() != 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean compararFechas(Date fecha1, Date fecha2)
+    {
+        return false;
+    }
+
+    private boolean comprobarNumbers(Number num)
+    {
+        try
+        {
+            if(Double.parseDouble(num.toString()) > 0)
+            {
+                return true;
+            }
+        }
+        catch (NumberFormatException e){}
+        return false;
     }
 
     /**private boolean isStringNull(String str)
