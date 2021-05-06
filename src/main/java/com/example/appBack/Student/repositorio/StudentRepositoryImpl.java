@@ -90,22 +90,4 @@ public class StudentRepositoryImpl
         }
         return null;
     }
-
-    private boolean isStringNull(String valor)
-    {
-        if (valor == null  && valor.trim().length() == 0)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean isNull(Object valor)
-    {
-        if (valor == null)
-        {
-            return true;
-        }
-        return false;
-    }
 }
