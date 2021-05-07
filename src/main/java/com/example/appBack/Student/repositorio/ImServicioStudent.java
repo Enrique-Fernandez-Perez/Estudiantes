@@ -16,7 +16,6 @@ public class ImServicioStudent implements ServicioStudent
     StudentRepository studentRepository;
 
     private ArrayList<String> campos = new ArrayList<String>();
-    private StudentDTO comprobar = new StudentDTO();
 
     @Override
     public ResponseEntity addStudent(StudentDTO sdto)
@@ -93,28 +92,13 @@ public class ImServicioStudent implements ServicioStudent
     @Override
     public List<StudentDTO> getConsulaCampo(StudentDTO aConsultar)
     {
-        return studentRepository.getQuery(aConsultar);
+        return studentRepository.getQuery(aConsultar, getAllColums());
     }
 
     @Override
-    public Student getCompararValores(Optional<StudentDTO> insertado, ArrayList<String> columnas)
+    public List<StudentDTO> getCompararValores(StudentDTO insertado, ArrayList<String> columnas)
     {
         String id = "";
-
-        this.comprobar = new StudentDTO();
-
-        StudentDTO insertar = new StudentDTO();
-
-        Student devolver;// = new Student();
-
-        if(insertado.isEmpty())
-        {
-            return null;
-        }
-        else
-        {
-            insertar = insertado.get();
-        }
 
         if(columnas.isEmpty()){return null;}
 
@@ -125,21 +109,26 @@ public class ImServicioStudent implements ServicioStudent
             {
                 columnas.remove(0);
             }
-
-            Optional<Student> st = studentRepository.findById("");
-            if(!st.isEmpty())
+            if(comprobarString(id))
             {
-                this.comprobar = StudentDTO.getStudentDTO(st.get());
+                Optional<Student> st = studentRepository.findById(id);
+                if(st.isEmpty())
+                {
+                    return null;
+                }
             }
         }
-        try {
-            if (columnas.get(0).equalsIgnoreCase("borrar")) {
+
+        try
+        {
+            if (columnas.get(0).equalsIgnoreCase("borrar"))
+            {
                 int fin = Integer.parseInt(columnas.get(1));//cuantos campos no quieress cnsultar
                 int posicion = Integer.parseInt(columnas.get(2));//a partir de que campo no quieres consultar
-                for (int i = 0; i != 3; i++) {
+                for (int i = 0; i != 3; i++)
+                {
                     columnas.remove(0);
                 }
-
                 for (int i = 0; i != fin; i++) {
                     columnas.remove(posicion);
                 }
@@ -153,103 +142,15 @@ public class ImServicioStudent implements ServicioStudent
 
         try
         {
-            String nombre = insertar.getNombre();
-            String apellido = insertar.getApellido();
-            String correo = insertar.getCorreo();
-            Date fecha_entrada = insertar.getFecha_entrada();
-            Date fecha_finalizacion = insertar.getFecha_finalizacion();
-            String ciudad = insertar.getCiudad();
-            Integer horas_semanales = insertar.getHoras_semanales();
-            String especialidad = insertar.getEspecialidad();
-            String estado = insertar.getEstado();
-
-            columnas.forEach(columna ->
-            {
-                switch (columna) {
-                    case ("nombre"):
-                        if (!comprobarString(nombre))
-                        {
-                            return;
-                        }
-                        this.comprobar.setNombre(nombre);
-                        break;
-                    case ("apellido"):
-                        if (!comprobarString(apellido)) {
-                            return;
-                        }
-                        this.comprobar.setApellido(apellido);
-                        break;
-                    case ("correo"):
-                        if (!comprobarString(correo)) {
-                            return;
-                        }
-                        this.comprobar.setCorreo(correo);
-                        break;
-                    case ("fecha_entrada"):
-                        if (!compararFechas(fecha_entrada, fecha_finalizacion))
-                        {
-                            return;
-                        }
-                        this.comprobar.setFecha_entrada(fecha_entrada);
-                        break;
-                    case ("ciudad"):
-                        if (!comprobarString(ciudad)) {
-                            return;
-                        }
-                        this.comprobar.setCiudad(ciudad);
-                        break;
-                    case ("horas_semanales"):
-                        if (!comprobarNumbers(horas_semanales)) {
-                            return;
-                        }
-                        this.comprobar.setHoras_semanales(horas_semanales);
-                        break;
-                    case ("especialidad"):
-                        if (!comprobarString(especialidad)) {
-                            return;
-                        }
-                        this.comprobar.setEspecialidad(especialidad);
-                        break;
-                    case ("estado"):
-                        if (!comprobarString(estado)) {
-                            return;
-                        }
-                        this.comprobar.setEspecialidad(estado);
-                        break;
-                }
-            });
-
-            List<StudentDTO> recogida = studentRepository.getQuery(this.comprobar);
-
-            if(comprobarString(id))
-            {
-                devolver = new Student(this.comprobar);
-
-                if(recogida.isEmpty())
-                {
-                    //studentRepository.saveAndFlush(devolver);
-                    return null;
-                }
-                //return devolver;
-                devolver.setId(id);
-                return devolver;
-            }
-
-            if(recogida.isEmpty())
-            {
-                devolver = new Student(this.comprobar);
-                return devolver;
-            }
-            else
-            {
-                devolver = new Student(recogida.get(0));
-                return devolver;
-            }
-        }catch (Exception e)
-        {
-            System.err.println(e.getMessage()+"");
-            return null;
+            List<StudentDTO> recogida = studentRepository.getQuery(insertado, columnas);
+            return recogida;
         }
+        catch (Exception e)
+        {
+            System.err.println(""+e.getMessage());
+            System.err.println(""+e.getCause());
+        }
+        return null;
     }
 
     @Override
@@ -324,44 +225,4 @@ public class ImServicioStudent implements ServicioStudent
         }
         return false;
     }
-
-    private boolean compararFechas(Date fecha1, Date fecha2)
-    {
-        if(fecha1.before(fecha2))
-        {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean comprobarNumbers(Number num)
-    {
-        try
-        {
-            if(Double.parseDouble(num.toString()) > 0)
-            {
-                return true;
-            }
-        }
-        catch (NumberFormatException e){}
-        return false;
-    }
-
-    /**private boolean isStringNull(String str)
-    {
-        if (str != null && str.trim().length() != 0)
-        {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean isNull(Object str)
-    {
-        if (str != null)
-        {
-            return false;
-        }
-        return true;
-    }*/
 }

@@ -21,28 +21,16 @@ public class StudentController {
     public ResponseEntity addStudent(@RequestBody StudentDTO studentDTO)
     {
         //servicioStudent.addStudent(studentDTO);
+        Optional<StudentDTO> estudiante = Optional.of(studentDTO);
         ArrayList<String> col = servicioStudent.getAllColums();
-      /*  Student poner = servicioStudent.getCompararValores(estudiante,col);
+        Student poner = servicioStudent.getCompararValores(estudiante,col);
         if(poner == null)
         {
             servicioStudent.addStudent(studentDTO);
             return ResponseEntity.ok().build();
-        }*/
+        }
         return ResponseEntity.ok("Error de creacion, estudiante existente o valores nulos no aceptable");
         //return ResponseEntity.ok().build();
-
-
-        //Comprobar: Nombre apellido fechas y correo
-    /*
-    fecha invalida: return null
-    Lista vacia: 0
-    Campo repetido: return Response Entity error.
-
-    Comprobar lista vacia(Permite añadir o modificar)
-    * */
-
-
-
     }
 
     @GetMapping("/getStudent/{id}")
@@ -63,29 +51,12 @@ public class StudentController {
     public ResponseEntity updateStudent(@PathVariable String id, @RequestBody StudentDTO studentDTO){
         servicioStudent.updateStudent(id,studentDTO);
         return ResponseEntity.ok().build();
-    }//Comprobar: Nombre apellido y correo
-    /*
-    Id invalido: null
-    Lista vacia:
-    Campo repetido: return Response Entity error.
-
-    Comprobar lista vacia(Permite añadir o modificar)
-    * */
+    }
 
     @GetMapping("/getStudent")
     public List<StudentDTO> getStudentConsulta(@RequestBody StudentDTO buscar)
     {
         return servicioStudent.getConsulaCampo(buscar);
-
-        //Comprobar: todo
-    /*
-    Lista pasada vacia
-    Lista vacia:
-    Campo repetido: return Response Entity error.
-
-    Comprobar lista vacia(Permite añadir o modificar)
-    * */
-
     }
 
 }

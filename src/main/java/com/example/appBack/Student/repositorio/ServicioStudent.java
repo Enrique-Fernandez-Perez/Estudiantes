@@ -22,7 +22,7 @@ public interface ServicioStudent
 
     List<StudentDTO> getConsulaCampo(StudentDTO aConsultar);
 
-    Student getCompararValores(Optional<StudentDTO> insertado, ArrayList<String> columnas);
+    List<StudentDTO> getCompararValores(StudentDTO insertado, ArrayList<String> columnas);
 
     ArrayList<String> getAllColums();
 

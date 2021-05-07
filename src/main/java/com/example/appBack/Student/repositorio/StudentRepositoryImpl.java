@@ -1,13 +1,14 @@
 package com.example.appBack.Student.repositorio;
 
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -15,72 +16,66 @@ import javax.persistence.criteria.Root;
 
 import com.example.appBack.Student.Entity.Student;
 import com.example.appBack.Student.Entity.StudentDTO;
+import com.sun.istack.NotNull;
 
 public class StudentRepositoryImpl
 {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<StudentDTO> getQuery(StudentDTO estudianteDto)
+    public List<StudentDTO> getQuery(StudentDTO estudianteDto, ArrayList<String> columnas)
     {
-        try {
+        try
+        {
             CriteriaBuilder cb = entityManager.getCriteriaBuilder();
             CriteriaQuery<Student> query = cb.createQuery(Student.class);
             Root<Student> root = query.from(Student.class);
 
             List<Predicate> predicates = new ArrayList<>();
 
-            String poner = "";//para recoger datos y limpieza visual de codigo
+            String nombre = estudianteDto.getNombre();
+            String apellido = estudianteDto.getApellido();
+            String correo = estudianteDto.getCorreo();
+            Date fecha_entrada = estudianteDto.getFecha_entrada();
+            Date fecha_finalizacion = estudianteDto.getFecha_finalizacion();
+            String ciudad = estudianteDto.getCiudad();
+            Integer horas_semanales = estudianteDto.getHoras_semanales();
+            String especialidad = estudianteDto.getEspecialidad();
+            String estado = estudianteDto.getEstado();
+            String correo_trabajo = estudianteDto.getCorreo_trabajo();
+            String comentarios = estudianteDto.getComentarios();
 
-            if (estudianteDto.getNombre() != null && estudianteDto.getNombre().trim().length() != 0)
+            Object[] datos = {nombre,apellido,correo,fecha_entrada,ciudad,horas_semanales,especialidad,estado, correo_trabajo, comentarios};
+
+            final int[] i = {0};
+
+            if(!compararFechas(fecha_entrada,fecha_finalizacion))
             {
-                poner = estudianteDto.getNombre().trim();
-                predicates.add(cb.like(root.get("nombre"), "%" + poner + "%"));
+                return null;
             }
 
-           if (estudianteDto.getApellido() != null  && estudianteDto.getApellido().trim().length() != 0)
-           {
-                poner = estudianteDto.getApellido().trim();
-                predicates.add(cb.equal(root.get("apellido"), "%" + poner + "%"));
-            }
+            columnas.forEach(columna ->
+            {
+                Object dato = datos[i[0]];
 
-           if (estudianteDto.getCorreo() != null  && estudianteDto.getCorreo().trim().length() != 0)
-           {
-               poner = estudianteDto.getCorreo().trim();
-               predicates.add(cb.like(root.get("correo"), "%" + poner + "%"));
-           }
-
-           if (estudianteDto.getFecha_entrada() != null)
-           {
-               Date fecha = estudianteDto.getFecha_entrada();
-               predicates.add(cb.equal(root.get("fecha_entrada"), fecha));
-           }
-
-           if (estudianteDto.getCiudad() != null  && estudianteDto.getCiudad().trim().length() != 0)
-           {
-               poner = estudianteDto.getCiudad().trim();
-               predicates.add(cb.like(root.get("ciudad"), "%" + poner + "%"));
-           }
-
-           if (estudianteDto.getHoras_semanales() != null)
-           {
-               poner = estudianteDto.getHoras_semanales().toString().trim();
-               predicates.add(cb.equal(root.get("horas_semanales"), Integer.parseInt(poner)));
-           }
-
-           if (estudianteDto.getEspecialidad() != null && estudianteDto.getEspecialidad().trim().length() != 0)
-           {
-               poner = "%" + estudianteDto.getEspecialidad().trim() + "%";
-               predicates.add(cb.like(root.get("especialidad"), poner));
-           }
-
-           if (estudianteDto.getEstado() != null && estudianteDto.getEstado().trim().length() != 0)
-           {
-               poner = "%" + estudianteDto.getEstado().trim() + "%";
-               predicates.add(cb.like(root.get("especialidad"), poner));
-           }
-
-           Long l = Date.parse("20/2/2021");
+                if(dato.getClass().getTypeName().equalsIgnoreCase("STRING"))
+                {
+                    String comprobar = ((String) dato).trim();
+                    if(comprobarString(comprobar))
+                    {
+                        predicates.add(cb.like(root.get(columna), "%" + comprobar + "%"));
+                    }
+                }
+                if(comprobarNumbers(dato))
+                {
+                    predicates.add(cb.equal(root.get(columna), Double.parseDouble(""+dato)));
+                }
+                if(datos[i[0]].getClass().getTypeName().equalsIgnoreCase("DATE"))
+                {
+                    predicates.add(cb.equal(root.get(columna), (Date)dato));
+                }
+                i[0]++;
+            });
 
             query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
             List<Student> lista = new ArrayList<>();
@@ -91,5 +86,36 @@ public class StudentRepositoryImpl
             System.err.println(e.getMessage()+"");
         }
         return null;
+    }
+
+    private boolean comprobarString(String str)
+    {
+        if (str.length() != 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean compararFechas(Date fecha1, Date fecha2)
+    {
+        if(fecha1.before(fecha2))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean comprobarNumbers(Object num)//Number num)
+    {
+        try
+        {
+            if(Double.parseDouble(num.toString()) > 0)
+            {
+                return true;
+            }
+        }
+        catch (NumberFormatException e){}
+        return false;
     }
 }
