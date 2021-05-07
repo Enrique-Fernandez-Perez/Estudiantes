@@ -21,16 +21,21 @@ public class StudentController {
     public ResponseEntity addStudent(@RequestBody StudentDTO studentDTO)
     {
         //servicioStudent.addStudent(studentDTO);
-        Optional<StudentDTO> estudiante = Optional.of(studentDTO);
-        ArrayList<String> col = servicioStudent.getAllColums();
-        Student poner = servicioStudent.getCompararValores(estudiante,col);
-        if(poner == null)
-        {
-            servicioStudent.addStudent(studentDTO);
-            return ResponseEntity.ok().build();
+        ArrayList<String> col = servicioStudent.getColum(3,servicioStudent.getAllColums().size());
+
+        List<StudentDTO> recogida = servicioStudent.getCompararValores(studentDTO,col);
+
+        if(recogida==null){
+            return ResponseEntity.ok("Fecha de baja superior a la de alta");
         }
-        return ResponseEntity.ok("Error de creacion, estudiante existente o valores nulos no aceptable");
-        //return ResponseEntity.ok().build();
+
+        if(recogida.isEmpty()){
+            servicioStudent.addStudent(studentDTO);
+            return ResponseEntity.ok("Se ha insertado correctamente");
+        }
+
+        return ResponseEntity.ok("Error de creacion");
+
     }
 
     @GetMapping("/getStudent/{id}")
@@ -48,15 +53,33 @@ public class StudentController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity updateStudent(@PathVariable String id, @RequestBody StudentDTO studentDTO){
-        servicioStudent.updateStudent(id,studentDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity updateStudent(@PathVariable String id, @RequestBody StudentDTO studentDTO)
+    {
+
+        ArrayList<String> col = servicioStudent.getColum(id,3,servicioStudent.getAllColums().size());
+
+        List<StudentDTO> recogida = servicioStudent.getCompararValores(studentDTO,col);
+
+        if(recogida==null){
+            return ResponseEntity.ok("Fecha de baja superior a la de alta o id no existente");
+        }
+
+        if(recogida.isEmpty()){
+            servicioStudent.updateStudent(id,studentDTO);
+            return ResponseEntity.ok("Se ha modificado correctamente");
     }
 
-    @GetMapping("/getStudent")
-    public List<StudentDTO> getStudentConsulta(@RequestBody StudentDTO buscar)
-    {
-        return servicioStudent.getConsulaCampo(buscar);
+        return ResponseEntity.ok("Error de modificacion");
     }
+
+
+    @GetMapping("/getStudent")
+    public List<StudentDTO> getStudentConsulta(@RequestBody StudentDTO buscar){
+    ArrayList<String> col =servicioStudent.getAllColums();
+
+    List<StudentDTO> recogida = servicioStudent.getCompararValores(buscar,col);
+
+    return recogida;
+}
 
 }

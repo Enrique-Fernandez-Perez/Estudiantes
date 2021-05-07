@@ -2,6 +2,7 @@ package com.example.appBack.Student.repositorio;
 
 import com.example.appBack.Student.Entity.Student;
 import com.example.appBack.Student.Entity.StudentDTO;
+import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -166,6 +167,9 @@ public class ImServicioStudent implements ServicioStudent
         campos2.add("horas_semanales");
         campos2.add("especialidad");
         campos2.add("estado");
+        campos2.add("correo_trabajo");
+        campos2.add("comentarios");
+        campos2.add("fecha_finalizacion");
 
         return campos2;
     }

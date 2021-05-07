@@ -45,7 +45,7 @@ public class StudentRepositoryImpl
             String correo_trabajo = estudianteDto.getCorreo_trabajo();
             String comentarios = estudianteDto.getComentarios();
 
-            Object[] datos = {nombre,apellido,correo,fecha_entrada,ciudad,horas_semanales,especialidad,estado, correo_trabajo, comentarios};
+            Object[] datos = {nombre,apellido,correo,fecha_entrada,fecha_finalizacion,ciudad,horas_semanales,especialidad,estado, correo_trabajo, comentarios};
 
             final int[] i = {0};
 
