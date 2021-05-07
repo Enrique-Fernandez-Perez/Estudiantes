@@ -69,17 +69,10 @@ public class ImServicioStudent implements ServicioStudent
     {
         if(studentRepository.existsById(id)==true)
         {
-            Student student = studentRepository.findById(id).get();
+            Student student = new Student(sdto);
             try
             {
-                student.setNombre(sdto.getNombre());
-                student.setApellido(sdto.getApellido());
-                student.setCorreo(sdto.getCorreo());
-                student.setFecha_entrada(sdto.getFecha_entrada());
-                student.setCiudad(sdto.getCiudad());
-                student.setHoras_semanales(sdto.getHoras_semanales());
-                student.setEspecialidad(sdto.getEspecialidad());
-                student.setEstado(sdto.getEstado());
+              student.setId(id);
             }
             catch (Exception e){System.err.println(e.getMessage());}
 

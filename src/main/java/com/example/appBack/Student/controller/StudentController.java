@@ -4,6 +4,7 @@ import com.example.appBack.Student.Entity.Student;
 import com.example.appBack.Student.Entity.StudentDTO;
 import com.example.appBack.Student.repositorio.ServicioStudent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.support.NullValue;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,21 +21,25 @@ public class StudentController {
     @PostMapping("/addStudent")
     public ResponseEntity addStudent(@RequestBody StudentDTO studentDTO)
     {
-        //servicioStudent.addStudent(studentDTO);
-        ArrayList<String> col = servicioStudent.getColum(3,servicioStudent.getAllColums().size());
-
-        List<StudentDTO> recogida = servicioStudent.getCompararValores(studentDTO,col);
-
-        if(recogida==null){
-            return ResponseEntity.ok("Fecha de baja superior a la de alta");
-        }
-
-        if(recogida.isEmpty()){
+        try {
             servicioStudent.addStudent(studentDTO);
-            return ResponseEntity.ok("Se ha insertado correctamente");
-        }
+            ArrayList<String> col = servicioStudent.getColum(3, servicioStudent.getAllColums().size());
 
-        return ResponseEntity.ok("Error de creacion");
+            List<StudentDTO> recogida = servicioStudent.getCompararValores(studentDTO, col);
+
+            if (recogida == null) {
+                return ResponseEntity.ok("Fecha de baja superior a la de alta");
+            }
+
+            if (recogida.isEmpty()) {
+                servicioStudent.addStudent(studentDTO);
+                return ResponseEntity.ok("Se ha insertado correctamente");
+            }
+
+            return ResponseEntity.ok("Error de creacion");
+        }catch (Exception e){
+            return ResponseEntity.ok("Error de creacion por valores nulos");
+        }
 
     }
 
@@ -48,6 +53,7 @@ public class StudentController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteStudentById(@PathVariable String id){
+        try{
         servicioStudent.deleteStudent(id);
         ArrayList<String> col =servicioStudent.getColum(id, 0,servicioStudent.getAllColums().size());
 
@@ -58,12 +64,16 @@ public class StudentController {
         }
 
         return ResponseEntity.ok().build();
+
+    }catch (Exception e){
+        return ResponseEntity.ok("Error de creacion por valores nulos");
+    }
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity updateStudent(@PathVariable String id, @RequestBody StudentDTO studentDTO)
     {
-
+        try{
         ArrayList<String> col = servicioStudent.getColum(id,3,servicioStudent.getAllColums().size());
 
         List<StudentDTO> recogida = servicioStudent.getCompararValores(studentDTO,col);
@@ -78,16 +88,26 @@ public class StudentController {
     }
 
         return ResponseEntity.ok("Error de modificacion");
+
+        }catch (Exception e){
+            return ResponseEntity.ok("Error de creacion por valores nulos");
+        }
     }
 
 
     @GetMapping("/getStudent")
     public List<StudentDTO> getStudentConsulta(@RequestBody StudentDTO buscar){
+
+        try{
     ArrayList<String> col =servicioStudent.getAllColums();
 
     List<StudentDTO> recogida = servicioStudent.getCompararValores(buscar,col);
 
     return recogida;
+
+        }catch (Exception e){
+            return null;
+        }
 }
 
 }

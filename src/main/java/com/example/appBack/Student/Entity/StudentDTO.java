@@ -49,6 +49,7 @@ public class StudentDTO {
     //Branch branch
 
     @NotNull
+    @JsonFormat(pattern = "MM/dd/yyyy")
     private Date fecha_finalizacion;
 
     public static StudentDTO getStudentDTO(Student student){

@@ -1,5 +1,6 @@
 package com.example.appBack.Student.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,6 +35,7 @@ public class Student {
     private String correo;
 
     @NotNull
+    @JsonFormat(pattern = "MM/dd/yyyy")
     private Date fecha_entrada;
 
     @NotNull
@@ -57,6 +59,7 @@ public class Student {
     //Branch branch
 
     @NotNull
+    @JsonFormat(pattern = "MM/dd/yyyy")
     private Date fecha_finalizacion;
 
 
