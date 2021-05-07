@@ -49,6 +49,14 @@ public class StudentController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteStudentById(@PathVariable String id){
         servicioStudent.deleteStudent(id);
+        ArrayList<String> col =servicioStudent.getColum(id, 0,servicioStudent.getAllColums().size());
+
+        List<StudentDTO> recogida = servicioStudent.getCompararValores(new StudentDTO(),col);
+
+        if(recogida==null){
+            return ResponseEntity.ok("ERROR 401");
+        }
+
         return ResponseEntity.ok().build();
     }
 
