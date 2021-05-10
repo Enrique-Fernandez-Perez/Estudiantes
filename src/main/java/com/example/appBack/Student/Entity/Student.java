@@ -23,18 +23,18 @@ import java.util.Date;
 public class Student {
 
     @Id
-    /*@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estudiantes_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estudiantes_seq")
     @GenericGenerator(
             //name = "ausencias_seq",
             name = "estudiantes_seq",
             //strategy = "com.bosonit.staffit.shared.sequences.StringPrefixedSequenceIdGenerator",
             strategy = "com.example.appBack.Student.Entity.StringPrefixedSequenceIdGenerator",
             parameters = {
-            @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
+            @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "50"),
             @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "EST"),
             @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%08d")
-            })*/
-    @GeneratedValue(strategy = GenerationType.AUTO)
+            })
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     private String id;
 
@@ -87,6 +87,9 @@ public class Student {
         this.horas_semanales=studentDTO.getHoras_semanales();
         this.especialidad=studentDTO.getEspecialidad();
         this.estado=studentDTO.getEstado();
+        this.comentarios = studentDTO.getComentarios();
+        this.fecha_finalizacion = studentDTO.getFecha_finalizacion();
+        this.correo_trabajo = studentDTO.getCorreo_trabajo();
         //this.branch = studentDTO.getBranch();
     }
 

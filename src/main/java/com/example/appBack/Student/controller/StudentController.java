@@ -21,13 +21,8 @@ public class StudentController {
     @PostMapping("/addStudent")
     public ResponseEntity addStudent(@RequestBody StudentDTO studentDTO)
     {
-        try {
-            return servicioStudent.addStudent(studentDTO);
-        }
-        catch (Exception e)
-        {
-            return ResponseEntity.status(500).build();
-        }
+        return servicioStudent.addStudent(studentDTO);
+
         /*try {
             return servicioStudent.validar(studentDTO,"ADD","");
         }

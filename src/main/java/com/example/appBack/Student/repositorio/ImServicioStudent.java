@@ -24,23 +24,37 @@ public class ImServicioStudent implements ServicioStudent
         //if(!compararFechas(sdto.getFecha_entrada(),sdto.getFecha_finalizacion()))
         if(!compararFechas(sdto))
         {
-            return ResponseEntity.status(400).build();
+            //return ResponseEntity.status(400).build();
+            return ResponseEntity.ok("Fechas incorrectas");
         }
 
         //if(studentRepository.existEmail(email))
         if(studentRepository.existEmail(sdto))
         {
-            return ResponseEntity.status(400).build();
+            //return ResponseEntity.status(400).build();
+            return ResponseEntity.ok("ERROR Email Existente");
         }
+
         //if(studentRepository.existNAmeSurname(nom,ape)){
         if(studentRepository.existNameSurname(sdto)){
-            return ResponseEntity.status(400).build();
+            //return ResponseEntity.status(400).build();
+            return ResponseEntity.ok("ERROR, nombre y apellidos repetidos");
         }
 
-        Student nuevoStudent = new Student(sdto);
-        studentRepository.saveAndFlush(nuevoStudent);
+        try {
+            Student nuevoStudent = new Student(sdto);
+            studentRepository.saveAndFlush(nuevoStudent);
 
-        return ResponseEntity.ok().build();
+            //return ResponseEntity.ok().build();
+            return ResponseEntity.ok("Insertado");
+
+            //return servicioStudent.addStudent(studentDTO);
+        }
+        catch (Exception e)
+        {
+            return ResponseEntity.ok("VALOR NULL");
+            //return ResponseEntity.status(500).build();
+        }
     }
 
     @Override

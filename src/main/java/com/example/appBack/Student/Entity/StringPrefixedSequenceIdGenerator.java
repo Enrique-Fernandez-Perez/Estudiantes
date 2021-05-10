@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 import java.util.Properties;
 
-
 public class StringPrefixedSequenceIdGenerator extends SequenceStyleGenerator {
 
     public static final String VALUE_PREFIX_PARAMETER = "valuePrefix";

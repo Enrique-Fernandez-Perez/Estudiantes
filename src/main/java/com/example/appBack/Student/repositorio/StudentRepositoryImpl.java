@@ -89,9 +89,14 @@ public class StudentRepositoryImpl
         predicates.add(cb.equal(root.get("apellido"), surname));
 
         query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
-        int primero = entityManager.createQuery(query).getFirstResult();
+        /**int primero = entityManager.createQuery(query).getFirstResult();
         if(primero == 0){
             return false;
+        }*/
+        List<Student> s = entityManager.createQuery(query).getResultList();
+        if(s.size() == 0)
+        {
+            return  false;
         }
         return true;
     }
@@ -109,9 +114,14 @@ public class StudentRepositoryImpl
         predicates.add(cb.equal(root.get("correo"), email));
 
         query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
-        int primero = entityManager.createQuery(query).getFirstResult();
-        if(primero == 0){
+        //int primero = entityManager.createQuery(query).getFirstResult();
+        /*if(primero == 0){
             return false;
+        }*/
+        List<Student> s = entityManager.createQuery(query).getResultList();
+        if(s.size() == 0)
+        {
+            return  false;
         }
         return true;
     }
