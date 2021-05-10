@@ -21,23 +21,19 @@ public class ImServicioStudent implements ServicioStudent
     @Override
     public ResponseEntity addStudent(StudentDTO sdto)
     {
-        Date fecha_alta = sdto.getFecha_entrada();
-        Date fecha_baja = sdto.getFecha_finalizacion();
-
-        String email = sdto.getCorreo();
-        String nom = sdto.getNombre();
-        String ape = sdto.getApellido();
-
-        if(!compararFechas(fecha_alta,fecha_baja))
+        //if(!compararFechas(sdto.getFecha_entrada(),sdto.getFecha_finalizacion()))
+        if(!compararFechas(sdto))
         {
             return ResponseEntity.status(400).build();
         }
 
-        if(studentRepository.existEmail(email))
+        //if(studentRepository.existEmail(email))
+        if(studentRepository.existEmail(sdto))
         {
             return ResponseEntity.status(400).build();
         }
-        if(studentRepository.existNAmeSurname(nom,ape)){
+        //if(studentRepository.existNAmeSurname(nom,ape)){
+        if(studentRepository.existNAmeSurname(sdto)){
             return ResponseEntity.status(400).build();
         }
 
@@ -293,8 +289,12 @@ public class ImServicioStudent implements ServicioStudent
         return false;
     }*/
 
-    private boolean compararFechas(Date fecha1, Date fecha2)
+    //private boolean compararFechas(Date fecha1, Date fecha2)
+    private boolean compararFechas(StudentDTO sdto)
     {
+        Date fecha1 = sdto.getFecha_entrada();
+        Date fecha2 = sdto.getFecha_finalizacion();
+
         if(fecha1 == null || fecha2 == null)
         {
             return false;

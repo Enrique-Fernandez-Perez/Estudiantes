@@ -78,8 +78,11 @@ public class StudentRepositoryImpl
         }
     }
 
-    public boolean existNameSurname(String name, String surname)
+    //public boolean existNameSurname(String name, String surname)
+    public boolean existNameSurname(StudentDTO sdto)
     {
+        String name = sdto.getNombre();
+        String surname = sdto.getApellido();
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Student> query = cb.createQuery(Student.class);
         Root<Student> root = query.from(Student.class);
@@ -97,8 +100,10 @@ public class StudentRepositoryImpl
         return true;
     }
 
-    public boolean existEmail(String email)
+    //public boolean existEmail(String email)
+    public boolean existEmail(StudentDTO sdto)
     {
+        String email = sdto.getCorreo();
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Student> query = cb.createQuery(Student.class);
         Root<Student> root = query.from(Student.class);
