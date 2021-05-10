@@ -21,26 +21,26 @@ public class StudentController {
     @PostMapping("/addStudent")
     public ResponseEntity addStudent(@RequestBody StudentDTO studentDTO)
     {
-        try {
-            servicioStudent.addStudent(studentDTO);
+        try
+        {
             ArrayList<String> col = servicioStudent.getColum(3, servicioStudent.getAllColums().size());
 
-            List<StudentDTO> recogida = servicioStudent.getCompararValores(studentDTO, col);
+            try {
+                List<StudentDTO> recogida = servicioStudent.getCompararValores(studentDTO, col);
 
-            if (recogida == null) {
+                if (recogida.isEmpty()) {
+                    servicioStudent.addStudent(studentDTO);
+                    return ResponseEntity.ok("Se ha insertado correctamente");
+                }
+
+                return ResponseEntity.ok("Error de creacion, por valores ya exitentes(Nombre , apellidos o/y correo)");
+            }
+            catch (Exception ex){
                 return ResponseEntity.ok("Fecha de baja superior a la de alta");
             }
-
-            if (recogida.isEmpty()) {
-                servicioStudent.addStudent(studentDTO);
-                return ResponseEntity.ok("Se ha insertado correctamente");
-            }
-
-            return ResponseEntity.ok("Error de creacion");
         }catch (Exception e){
             return ResponseEntity.ok("Error de creacion por valores nulos");
         }
-
     }
 
     @GetMapping("/getStudent/{id}")

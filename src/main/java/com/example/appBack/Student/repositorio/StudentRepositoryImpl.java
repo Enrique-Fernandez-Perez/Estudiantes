@@ -84,8 +84,9 @@ public class StudentRepositoryImpl
         }catch (Exception e)
         {
             System.err.println(e.getMessage()+"");
+            return new ArrayList<>();
         }
-        return null;
+        //return null;
     }
 
     private boolean comprobarString(String str)

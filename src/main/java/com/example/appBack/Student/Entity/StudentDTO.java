@@ -24,7 +24,7 @@ public class StudentDTO {
     @NotNull
     private String correo;
 
-    @JsonFormat(pattern = "MM/dd/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date fecha_entrada;
 
     @NotNull
@@ -49,7 +49,7 @@ public class StudentDTO {
     //Branch branch
 
     @NotNull
-    @JsonFormat(pattern = "MM/dd/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date fecha_finalizacion;
 
     public static StudentDTO getStudentDTO(Student student){

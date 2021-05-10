@@ -1,4 +1,4 @@
-package com.example.appBack.Student;
+package com.example.appBack.Student.Entity;
 
 import org.hibernate.HibernateException;
 import org.hibernate.MappingException;

@@ -1,16 +1,13 @@
 package com.example.appBack.Student.Entity;
 
 
-import com.example.appBack.Student.StringPrefixedSequenceIdGenerator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,13 +23,16 @@ import java.util.Date;
 public class Student {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estudiantes_seq")
+    /**@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estudiantes_seq")
     @GenericGenerator(
-            name = "estudiantes_seq", strategy = "", parameters = {
+            name = "ausencias_seq",
+            strategy = "com.bosonit.staffit.shared.sequences.StringPrefixedSequenceIdGenerator",
+            parameters = {
             @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
             @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "EST"),
             @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%08d")
-    })
+            })*/
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     private String id;
 
@@ -46,7 +46,7 @@ public class Student {
     private String correo;
 
     @NotNull
-    @JsonFormat(pattern = "MM/dd/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date fecha_entrada;
 
     @NotNull
@@ -70,7 +70,7 @@ public class Student {
     //Branch branch
 
     @NotNull
-    @JsonFormat(pattern = "MM/dd/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date fecha_finalizacion;
 
 
