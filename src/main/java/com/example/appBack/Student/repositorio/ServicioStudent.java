@@ -14,6 +14,8 @@ public interface ServicioStudent
 
     StudentDTO getStudent(String id);
 
+    Boolean validar(StudentDTO estudiante);
+
     List<StudentDTO> getAll();
 
     ResponseEntity deleteStudent(String id);

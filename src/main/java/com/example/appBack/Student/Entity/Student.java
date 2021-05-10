@@ -16,7 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 
-
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,15 +23,17 @@ import java.util.Date;
 public class Student {
 
     @Id
-    /*@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estudiantes_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estudiantes_seq")
     @GenericGenerator(
-            name = "ausencias_seq",
-            strategy = "com.bosonit.staffit.shared.sequences.StringPrefixedSequenceIdGenerator",
+            //name = "ausencias_seq",
+            name = "estudiantes_seq",
+            //strategy = "com.bosonit.staffit.shared.sequences.StringPrefixedSequenceIdGenerator",
+            strategy = "com.example.appBack.Student.Entity",
             parameters = {
             @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
             @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "EST"),
             @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%08d")
-            })*/
+            })
     @NotNull
     private String id;
 

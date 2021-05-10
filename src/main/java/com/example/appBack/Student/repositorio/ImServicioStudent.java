@@ -222,4 +222,44 @@ public class ImServicioStudent implements ServicioStudent
         }
         return false;
     }
+
+    @Override
+    public Boolean validar(StudentDTO estudiante)
+    {
+        try
+        {
+            ArrayList<String> columnas = new ArrayList<>();
+            columnas.add("nombre");
+            columnas.add("apellido");
+            columnas.add("correo");
+            List<StudentDTO> recogida = studentRepository.getQuery(estudiante, columnas);
+            if(recogida.isEmpty())
+            {
+                return true;
+            }
+            if(!recogida.isEmpty())
+            {
+                return false;
+            }
+            return true;
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
+
+    private boolean compararNombre(String name)
+    {
+        return false;
+    }
+
+    private boolean compararFechas(Date fecha1, Date fecha2)
+    {
+        if(fecha1.before(fecha2))
+        {
+            return true;
+        }
+        return false;
+    }
 }
