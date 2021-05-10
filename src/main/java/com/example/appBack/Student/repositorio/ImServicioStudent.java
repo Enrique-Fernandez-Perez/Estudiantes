@@ -21,21 +21,18 @@ public class ImServicioStudent implements ServicioStudent
     @Override
     public ResponseEntity addStudent(StudentDTO sdto)
     {
-        //if(!compararFechas(sdto.getFecha_entrada(),sdto.getFecha_finalizacion()))
         if(!compararFechas(sdto))
         {
             //return ResponseEntity.status(400).build();
             return ResponseEntity.ok("Fechas incorrectas");
         }
 
-        //if(studentRepository.existEmail(email))
         if(studentRepository.existEmail(sdto))
         {
             //return ResponseEntity.status(400).build();
             return ResponseEntity.ok("ERROR Email Existente");
         }
 
-        //if(studentRepository.existNAmeSurname(nom,ape)){
         if(studentRepository.existNameSurname(sdto)){
             //return ResponseEntity.status(400).build();
             return ResponseEntity.ok("ERROR, nombre y apellidos repetidos");
@@ -99,7 +96,54 @@ public class ImServicioStudent implements ServicioStudent
     @Override
     public ResponseEntity updateStudent(String id, StudentDTO sdto)
     {
-        if(studentRepository.existsById(id)==true)
+        if(!studentRepository.existsById(id))
+        {
+            return ResponseEntity.status(401).build();
+        }
+
+        if(!compararFechas(sdto))
+        {
+            //return ResponseEntity.status(400).build();
+            return ResponseEntity.ok("Fechas incorrectas");
+        }
+
+        if(studentRepository.existEmail(sdto))
+        {
+            //return ResponseEntity.status(400).build();
+            String compID = studentRepository.getStudentbyEmail(sdto).getId();
+            if(!id.equalsIgnoreCase(compID))
+            {
+                return ResponseEntity.ok("ERROR Email Existente");
+            }
+        }
+
+        if(studentRepository.existNameSurname(sdto))
+        {
+            //return ResponseEntity.status(400).build();
+            String compID = studentRepository.getStudentbyNameSurname(sdto).getId();
+            if(!id.equalsIgnoreCase(compID))
+            {
+                return ResponseEntity.ok("ERROR, nombre y apellidos repetidos");
+            }
+        }
+
+        try {
+            Student nuevoStudent = new Student(sdto);
+            nuevoStudent.setId(id);
+            studentRepository.saveAndFlush(nuevoStudent);
+
+            //return ResponseEntity.ok().build();
+            return ResponseEntity.ok("Actualizado");
+
+            //return servicioStudent.addStudent(studentDTO);
+        }
+        catch (Exception e)
+        {
+            return ResponseEntity.ok("VALOR NULL");
+            //return ResponseEntity.status(500).build();
+        }
+
+        /**if(studentRepository.existsById(id)==true)
         {
             Student student = new Student(sdto);
             try
@@ -114,7 +158,7 @@ public class ImServicioStudent implements ServicioStudent
         return ResponseEntity.status(401).build();
         //else{
             //return ResponseEntity.badRequest().build();
-        //}
+        //}*/
     }
 
     @Override

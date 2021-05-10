@@ -101,6 +101,24 @@ public class StudentRepositoryImpl
         return true;
     }
 
+    public Student getStudentbyNameSurname(StudentDTO sdto)
+    {
+        String name = sdto.getNombre();
+        String surname = sdto.getApellido();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Student> query = cb.createQuery(Student.class);
+        Root<Student> root = query.from(Student.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        predicates.add(cb.equal(root.get("nombre"), name));
+        predicates.add(cb.equal(root.get("apellido"), surname));
+
+        query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
+
+        return entityManager.createQuery(query).getSingleResult();
+    }
+
     //public boolean existEmail(String email)
     public boolean existEmail(StudentDTO sdto)
     {
@@ -126,6 +144,21 @@ public class StudentRepositoryImpl
         return true;
     }
 
+    public Student getStudentbyEmail(StudentDTO sdto)
+    {
+        String email = sdto.getCorreo();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Student> query = cb.createQuery(Student.class);
+        Root<Student> root = query.from(Student.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        predicates.add(cb.equal(root.get("correo"), email));
+
+        query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
+
+        return entityManager.createQuery(query).getSingleResult();
+    }
     /*private boolean comprobar(String comprobacion, Object objectAComprobar)
     {
         if(objectAComprobar.getClass().getTypeName().equalsIgnoreCase("STRING"))
