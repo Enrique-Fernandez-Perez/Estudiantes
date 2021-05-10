@@ -23,21 +23,34 @@ public class StudentController {
     {
         try
         {
+            //servicioStudent.addStudent(studentDTO);
             ArrayList<String> col = servicioStudent.getColum(3, servicioStudent.getAllColums().size());
 
-            try {
-                List<StudentDTO> recogida = servicioStudent.getCompararValores(studentDTO, col);
 
-                if (recogida.isEmpty()) {
-                    servicioStudent.addStudent(studentDTO);
-                    return ResponseEntity.ok("Se ha insertado correctamente");
+            List<StudentDTO> recogida = new ArrayList<>();
+            try{
+                recogida = servicioStudent.getCompararValores(studentDTO, col);
+                if (recogida == null){
+                    return ResponseEntity.ok("Fecha de baja superior a la de alta");
                 }
-
-                return ResponseEntity.ok("Error de creacion, por valores ya exitentes(Nombre , apellidos o/y correo)");
             }
-            catch (Exception ex){
+            catch (Exception e){
                 return ResponseEntity.ok("Fecha de baja superior a la de alta");
             }
+
+
+            if (recogida.isEmpty()) {
+                servicioStudent.addStudent(studentDTO);
+                return ResponseEntity.ok("Se ha insertado correctamente");
+            }
+
+
+            /**if (recogida == null)
+            {
+                return ResponseEntity.ok("Fecha de baja superior a la de alta");
+            }*/
+
+            return ResponseEntity.ok("Error de creacion");
         }catch (Exception e){
             return ResponseEntity.ok("Error de creacion por valores nulos");
         }
