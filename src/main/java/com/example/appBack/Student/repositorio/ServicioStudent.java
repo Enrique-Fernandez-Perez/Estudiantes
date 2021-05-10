@@ -14,15 +14,15 @@ public interface ServicioStudent
 
     StudentDTO getStudent(String id);
 
-    Boolean validar(StudentDTO estudiante);
-
-    List<StudentDTO> getAll();
-
     ResponseEntity deleteStudent(String id);
 
     ResponseEntity updateStudent(String id, StudentDTO sdto);
 
     List<StudentDTO> getConsulaCampo(StudentDTO aConsultar);
+
+    /*ResponseEntity validar(StudentDTO estudiante, String accion, String id);
+
+    List<StudentDTO> getAll();
 
     List<StudentDTO> getCompararValores(StudentDTO insertado, ArrayList<String> columnas);
 
@@ -32,5 +32,5 @@ public interface ServicioStudent
 
     ArrayList<String> getColum(Integer numCampos, Integer posicionPrimerCampo);
 
-    ArrayList<String> getColum(String id, Integer numCampos, Integer posicionPrimerCampo);
+    ArrayList<String> getColum(String id, Integer numCampos, Integer posicionPrimerCampo);*/
 }

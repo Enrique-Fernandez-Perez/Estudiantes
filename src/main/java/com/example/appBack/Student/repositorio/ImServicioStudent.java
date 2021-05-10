@@ -21,6 +21,26 @@ public class ImServicioStudent implements ServicioStudent
     @Override
     public ResponseEntity addStudent(StudentDTO sdto)
     {
+        Date fecha_alta = sdto.getFecha_entrada();
+        Date fecha_baja = sdto.getFecha_finalizacion();
+
+        String email = sdto.getCorreo();
+        String nom = sdto.getNombre();
+        String ape = sdto.getApellido();
+
+        if(!compararFechas(fecha_alta,fecha_baja))
+        {
+            return ResponseEntity.status(400).build();
+        }
+
+        if(studentRepository.existEmail(email))
+        {
+            return ResponseEntity.status(400).build();
+        }
+        if(studentRepository.existNAmeSurname(nom,ape)){
+            return ResponseEntity.status(400).build();
+        }
+
         Student nuevoStudent = new Student(sdto);
         studentRepository.saveAndFlush(nuevoStudent);
 
@@ -39,7 +59,7 @@ public class ImServicioStudent implements ServicioStudent
         return null;
     }
 
-    @Override
+    /*@Override
     public List<StudentDTO> getAll()
     {
         List<Student> lista = studentRepository.findAll();
@@ -51,15 +71,17 @@ public class ImServicioStudent implements ServicioStudent
         {
             return  StudentDTO.getAllDTO(lista);
         }
-    }
+    }*/
 
     @Override
-    public ResponseEntity deleteStudent(String id) {
-        ResponseEntity respuesta=null;
-        if(studentRepository.existsById(id)==true){
+    public ResponseEntity deleteStudent(String id)
+    {
+        if(studentRepository.existsById(id)==true)
+        {
            studentRepository.deleteById(id);
            return ResponseEntity.ok().build();
-        }else{
+        }
+        else{
             return ResponseEntity.badRequest().build();
         }
     }
@@ -78,18 +100,24 @@ public class ImServicioStudent implements ServicioStudent
 
             studentRepository.saveAndFlush(student);
            return ResponseEntity.ok().build();
-        }else{
-            return ResponseEntity.badRequest().build();
         }
+        return ResponseEntity.status(401).build();
+        //else{
+            //return ResponseEntity.badRequest().build();
+        //}
     }
 
     @Override
     public List<StudentDTO> getConsulaCampo(StudentDTO aConsultar)
     {
-        return studentRepository.getQuery(aConsultar, getAllColums());
+        //return studentRepository.getQuery(aConsultar, getAllColums());
+        return studentRepository.getQuery(aConsultar);
     }
 
-    @Override
+
+
+
+    /*@Override
     public List<StudentDTO> getCompararValores(StudentDTO insertado, ArrayList<String> columnas)
     {
         String id = "";
@@ -224,7 +252,7 @@ public class ImServicioStudent implements ServicioStudent
     }
 
     @Override
-    public Boolean validar(StudentDTO estudiante)
+    public ResponseEntity validar(StudentDTO estudiante, String accion, String id)
     {
         try
         {
@@ -232,34 +260,45 @@ public class ImServicioStudent implements ServicioStudent
             columnas.add("nombre");
             columnas.add("apellido");
             columnas.add("correo");
+
+            Date fecha_entrada = estudiante.getFecha_entrada();
+            Date fecha_finalizacion = estudiante.getFecha_finalizacion();
+
+            if(!compararFechas(fecha_entrada,fecha_finalizacion))
+            {
+                return ResponseEntity.status(0).body("Fecha de alta superior a la de baja");
+            }
+
             List<StudentDTO> recogida = studentRepository.getQuery(estudiante, columnas);
-            if(recogida.isEmpty())
-            {
-                return true;
-            }
-            if(!recogida.isEmpty())
-            {
-                return false;
-            }
-            return true;
-        }
+            /**switch (accion) {
+                case "ADD":
+                    if (!recogida.isEmpty()) {
+                        return ResponseEntity.status(0).body("Insercion no permitida, por culpa de nombre, apellidos o correo pasados ya existentes");
+                    }
+                    return addStudent(estudiante);
+                case "UPDATE":
+                    return updateStudent(id, estudiante);
+                default:
+                    return ResponseEntity.ok().build();
+            }*/
+        /**}
         catch (Exception e)
         {
-            return null;
+            return ResponseEntity.status(0).body("Fecha de alta superior a la de baja");
         }
     }
 
     private boolean compararNombre(String name)
     {
         return false;
-    }
+    }*/
 
     private boolean compararFechas(Date fecha1, Date fecha2)
     {
-        if(fecha1.before(fecha2))
+        if(fecha1 == null || fecha2 == null)
         {
-            return true;
+            return false;
         }
-        return false;
+        return fecha1.before(fecha2);
     }
 }

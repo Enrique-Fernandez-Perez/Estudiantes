@@ -21,7 +21,15 @@ public class StudentController {
     @PostMapping("/addStudent")
     public ResponseEntity addStudent(@RequestBody StudentDTO studentDTO)
     {
-        try
+        try {
+            return servicioStudent.validar(studentDTO,"ADD","");
+        }
+        catch (Exception e)
+        {
+            return ResponseEntity.status(500).build();
+        }
+
+        /**try
         {
             //servicioStudent.addStudent(studentDTO);
             ArrayList<String> col = servicioStudent.getColum(3, servicioStudent.getAllColums().size());
@@ -48,12 +56,12 @@ public class StudentController {
             /**if (recogida == null)
             {
                 return ResponseEntity.ok("Fecha de baja superior a la de alta");
-            }*/
+            }///
 
             return ResponseEntity.ok("Error de creacion");
         }catch (Exception e){
             return ResponseEntity.ok("Error de creacion por valores nulos");
-        }
+        }*/
     }
 
     @GetMapping("/getStudent/{id}")
