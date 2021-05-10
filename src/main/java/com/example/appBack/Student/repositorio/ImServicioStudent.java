@@ -33,7 +33,7 @@ public class ImServicioStudent implements ServicioStudent
             return ResponseEntity.status(400).build();
         }
         //if(studentRepository.existNAmeSurname(nom,ape)){
-        if(studentRepository.existNAmeSurname(sdto)){
+        if(studentRepository.existNameSurname(sdto)){
             return ResponseEntity.status(400).build();
         }
 

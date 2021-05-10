@@ -17,13 +17,15 @@ import javax.persistence.criteria.Root;
 import com.example.appBack.Student.Entity.Student;
 import com.example.appBack.Student.Entity.StudentDTO;
 import com.sun.istack.NotNull;
+import org.springframework.stereotype.Component;
+
 
 public class StudentRepositoryImpl
 {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<StudentDTO> getQuery(StudentDTO estudianteDto)
+    public List<StudentDTO> getQuery(StudentDTO consulta)
     {
         try
         {
@@ -33,23 +35,17 @@ public class StudentRepositoryImpl
 
             List<Predicate> predicates = new ArrayList<>();
 
-            String nombre = estudianteDto.getNombre();
-            String apellido = estudianteDto.getApellido();
-            String correo = estudianteDto.getCorreo();
-            Date fecha_entrada = estudianteDto.getFecha_entrada();
-            Date fecha_finalizacion = estudianteDto.getFecha_finalizacion();
-            String ciudad = estudianteDto.getCiudad();
-            Integer horas_semanales = estudianteDto.getHoras_semanales();
-            String especialidad = estudianteDto.getEspecialidad();
-            String estado = estudianteDto.getEstado();
-            String correo_trabajo = estudianteDto.getCorreo_trabajo();
-            String comentarios = estudianteDto.getComentarios();
-
-            /**Object[] datos = {nombre,apellido,correo,fecha_entrada,fecha_finalizacion,ciudad,horas_semanales,especialidad,estado, correo_trabajo, comentarios};
-
-            final int[] i = {0};
-
-            Object dato = datos[i[0]];*/
+            String nombre = consulta.getNombre();
+            String apellido = consulta.getApellido();
+            String correo = consulta.getCorreo();
+            Date fecha_entrada = consulta.getFecha_entrada();
+            Date fecha_finalizacion = consulta.getFecha_finalizacion();
+            String ciudad = consulta.getCiudad();
+            Integer horas_semanales = consulta.getHoras_semanales();
+            String especialidad = consulta.getEspecialidad();
+            String estado = consulta.getEstado();
+            String correo_trabajo = consulta.getCorreo_trabajo();
+            String comentarios = consulta.getComentarios();
 
 
             if(comprobarString(nombre)){ predicates.add(cb.equal(root.get("nombre"), nombre));}

@@ -10,11 +10,11 @@ import java.util.List;
 public interface StudentRepository extends JpaRepository<Student,String>
 {
     //public List<StudentDTO> getQuery(StudentDTO consulta, ArrayList<String> columnas);
-    public List<StudentDTO> getQuery(StudentDTO consulta);
+    List<StudentDTO> getQuery(StudentDTO consulta);
 
     //public boolean existNAmeSurname(String name, String surname);
     //public boolean existEmail(String email);
 
-    public boolean existNAmeSurname(StudentDTO sdto);
-    public boolean existEmail(StudentDTO sdto);
+    boolean existNameSurname(StudentDTO sdto);
+    boolean existEmail(StudentDTO sdto);
 }
