@@ -8,10 +8,12 @@ import org.hibernate.internal.util.config.ConfigurationHelper;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.type.LongType;
 import org.hibernate.type.Type;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Properties;
 
+@Component
 public class StringPrefixedSequenceIdGenerator extends SequenceStyleGenerator {
 
     public static final String VALUE_PREFIX_PARAMETER = "valuePrefix";

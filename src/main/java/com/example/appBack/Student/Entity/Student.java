@@ -6,6 +6,7 @@ import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.dom4j.Branch;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -23,7 +24,7 @@ import java.util.Date;
 public class Student {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estudiantes_seq")
+    /*@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estudiantes_seq")
     @GenericGenerator(
             name = "ausencias_seq",
             strategy = "com.bosonit.staffit.shared.sequences.StringPrefixedSequenceIdGenerator",
@@ -31,8 +32,8 @@ public class Student {
             @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
             @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "EST"),
             @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%08d")
-            })
-    //@NotNull
+            })*/
+    @NotNull
     private String id;
 
     @NotNull
@@ -66,7 +67,8 @@ public class Student {
     @NotNull
     private String comentarios;
 
-    //Branch branch
+    /*@NotNull
+    Branch branch;*/
 
     @NotNull
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -83,6 +85,7 @@ public class Student {
         this.horas_semanales=studentDTO.getHoras_semanales();
         this.especialidad=studentDTO.getEspecialidad();
         this.estado=studentDTO.getEstado();
+        //this.branch = studentDTO.getBranch();
     }
 
 }

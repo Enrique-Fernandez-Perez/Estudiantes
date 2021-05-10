@@ -5,6 +5,7 @@ import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.dom4j.Branch;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,11 +47,12 @@ public class StudentDTO {
     @NotNull
     private String comentarios;
 
-    //Branch branch
-
     @NotNull
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date fecha_finalizacion;
+
+    /*@NotNull
+    Branch branch;*/
 
     public static StudentDTO getStudentDTO(Student student){
         return new StudentDTO(student.getNombre(),
@@ -63,7 +65,8 @@ public class StudentDTO {
                 student.getEstado(),
                 student.getCorreo_trabajo(),
                 student.getComentarios(),
-                student.getFecha_finalizacion());
+                student.getFecha_finalizacion());/*,
+                student.getBranch());*/
     }
 
     public static List<StudentDTO> getAllDTO(List<Student> listStudent){
