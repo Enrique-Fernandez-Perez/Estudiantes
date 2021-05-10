@@ -1,11 +1,16 @@
 package com.example.appBack.Student.Entity;
 
+
+import com.example.appBack.Student.StringPrefixedSequenceIdGenerator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +26,13 @@ import java.util.Date;
 public class Student {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estudiantes_seq")
+    @GenericGenerator(
+            name = "estudiantes_seq", strategy = "", parameters = {
+            @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
+            @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "EST"),
+            @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%08d")
+    })
     @NotNull
     private String id;
 
