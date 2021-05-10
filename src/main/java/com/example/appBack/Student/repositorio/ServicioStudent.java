@@ -20,6 +20,8 @@ public interface ServicioStudent
 
     List<StudentDTO> getConsulaCampo(StudentDTO aConsultar);
 
+    List<StudentDTO> getAll();
+
     /*ResponseEntity validar(StudentDTO estudiante, String accion, String id);
 
     List<StudentDTO> getAll();

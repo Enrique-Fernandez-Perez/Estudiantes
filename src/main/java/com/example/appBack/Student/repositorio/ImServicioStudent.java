@@ -55,7 +55,7 @@ public class ImServicioStudent implements ServicioStudent
         return null;
     }
 
-    /*@Override
+    @Override
     public List<StudentDTO> getAll()
     {
         List<Student> lista = studentRepository.findAll();
@@ -67,7 +67,7 @@ public class ImServicioStudent implements ServicioStudent
         {
             return  StudentDTO.getAllDTO(lista);
         }
-    }*/
+    }
 
     @Override
     public ResponseEntity deleteStudent(String id)
