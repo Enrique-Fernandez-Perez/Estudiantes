@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.dom4j.Branch;
 import org.hibernate.annotations.GenericGenerator;
@@ -91,4 +92,143 @@ public class Student {
         this.branch = studentDTO.getBranch();
     }
 
+    public void setDatos(StudentDTO studentDTO){
+        //id null
+        this.setNombre(studentDTO.getNombre());
+        if(comprobarString(studentDTO.getNombre()) && !comprobarString(studentDTO.getApellido())){
+            return;
+        }
+
+        this.setApellido(studentDTO.getApellido());
+        this.setCorreo(studentDTO.getCorreo());
+        this.setFecha_entrada(studentDTO.getFecha_entrada());
+
+        this.setCiudad(studentDTO.getCiudad());
+        this.setHoras_semanales(studentDTO.getHoras_semanales());
+        this.setEspecialidad(studentDTO.getEspecialidad());
+        this.setEstado(studentDTO.getEstado());
+
+        this.setComentarios(studentDTO.getComentarios());
+        this.setFecha_finalizacion(studentDTO.getFecha_finalizacion());
+        this.setCorreo_trabajo(studentDTO.getCorreo_trabajo());
+        this.setBranch(studentDTO.getBranch());
+    }
+
+    private void setNombre(String nombre) {
+        if(comprobarString(nombre))
+        {
+            this.nombre = nombre;
+        }
+    }
+
+    private void setApellido(String apellido) {
+        if(comprobarString(apellido))
+        {
+            this.apellido = apellido;
+        }
+    }
+
+    private void setCorreo(String correo) {
+        if(comprobarString(correo))
+        {
+            this.correo = correo;
+        }
+    }
+
+    private void setFecha_entrada(Date fecha_entrada) {
+        if(comprobarFechas(fecha_entrada)){
+            this.fecha_entrada = fecha_entrada;
+        }
+    }
+
+    private void setCiudad(String ciudad) {
+        if(comprobarString(ciudad))
+        {
+            this.ciudad = ciudad;
+        }
+    }
+
+    private void setHoras_semanales(Integer horas_semanales) {
+        if(comprobarNumbers(horas_semanales)){
+            this.horas_semanales = horas_semanales;
+        }
+    }
+
+    private void setEspecialidad(String especialidad) {
+        if(comprobarString(especialidad))
+        {
+            this.especialidad = especialidad;
+        }
+    }
+
+    private void setEstado(Boolean estado) {
+        if(comprobarObjects(estado)) {
+            this.estado = estado;
+        }
+    }
+
+    private void setCorreo_trabajo(String correo_trabajo) {
+        if(comprobarString(correo_trabajo))
+        {
+            this.correo_trabajo = correo_trabajo;
+        }
+    }
+
+    private void setComentarios(String comentarios) {
+        if(comprobarString(comentarios))
+        {
+            this.comentarios = comentarios;
+        }
+    }
+
+    private void setFecha_finalizacion(Date fecha_finalizacion) {
+        if(comprobarFechas(fecha_finalizacion)){
+            this.fecha_finalizacion = fecha_finalizacion;
+        }
+    }
+
+    private void setBranch(branch branch) {
+        if(comprobarObjects(branch)){
+            this.branch = branch;
+        }
+    }
+
+    private boolean comprobarString(String str)
+    {
+        if (str.length() != 0 && str != null)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean comprobarFechas(Date fecha)
+    {
+        if(fecha != null)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean comprobarNumbers(Object num)
+    {
+        try
+        {
+            if(num != null && Double.parseDouble(num.toString()) > 0)
+            {
+                return true;
+            }
+        }
+        catch (NumberFormatException e){}
+        return false;
+    }
+
+    private boolean comprobarObjects(Object objeto)
+    {
+        if(objeto != null){
+            return true;
+        }
+        return false;
+    }
 }
