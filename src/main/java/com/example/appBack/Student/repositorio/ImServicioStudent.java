@@ -90,7 +90,7 @@ public class ImServicioStudent implements ServicioStudent
         try {
         if(!studentRepository.existsById(id))
         {
-            return ResponseEntity.status(401).build();
+            return ResponseEntity.status(401).body("ID de Estudiante inexistente/no encontrado");
         }
 
         Student nuevoStudent = studentRepository.findById(id).get();
@@ -99,7 +99,7 @@ public class ImServicioStudent implements ServicioStudent
 
         if(!compararFechas(sdto))
         {
-            return ResponseEntity.ok("Fechas incorrectas");
+            return ResponseEntity.badRequest().body("Fechas de alta superior a la de baja");
         }
 
 
@@ -108,7 +108,7 @@ public class ImServicioStudent implements ServicioStudent
             String compID = studentRepository.getStudentbyEmail(sdto).getId();
             if(!id.equalsIgnoreCase(compID))
             {
-                return ResponseEntity.ok("ERROR Email Existente");
+                return ResponseEntity.badRequest().body("ERROR Email Existente");
             }
         }
 
@@ -118,7 +118,7 @@ public class ImServicioStudent implements ServicioStudent
             String compID = studentRepository.getStudentbyNameSurname(sdto).getId();
             if(!id.equalsIgnoreCase(compID))
             {
-                return ResponseEntity.ok("ERROR, nombre y apellidos repetidos");
+                return ResponseEntity.badRequest().body("ERROR, nombre y apellidos repetidos");
             }
         }
             /**Student nuevoStudent = new Student(sdto);
@@ -133,7 +133,7 @@ public class ImServicioStudent implements ServicioStudent
         }
         catch (Exception e)
         {
-            return ResponseEntity.ok("VALOR NULL");
+            return ResponseEntity.badRequest().body("ALGUN VALOR INTRODUCIDO ES NULO, NO SE ACEPTAN NULOS");
         }
     }
 

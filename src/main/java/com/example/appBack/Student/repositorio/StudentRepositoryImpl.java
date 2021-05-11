@@ -74,11 +74,6 @@ public class StudentRepositoryImpl
         catch (Exception e){
             return false;
         }
-        /*if(s == null)
-        {
-            return  false;
-        }
-        return true;*/
     }
 
     public Student getStudentbyNameSurname(StudentDTO sdto)
