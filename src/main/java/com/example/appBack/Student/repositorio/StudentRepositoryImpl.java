@@ -66,21 +66,8 @@ public class StudentRepositoryImpl
 
     public boolean existNameSurname(StudentDTO sdto)
     {
-        String name = sdto.getNombre();
-        String surname = sdto.getApellido();
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Student> query = cb.createQuery(Student.class);
-        Root<Student> root = query.from(Student.class);
-
-        List<Predicate> predicates = new ArrayList<>();
-
-        predicates.add(cb.equal(root.get("nombre"), name));
-        predicates.add(cb.equal(root.get("apellido"), surname));
-
-        query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
-
-        List<Student> s = entityManager.createQuery(query).getResultList();
-        if(s.size() == 0)
+        Student s = getStudentbyNameSurname(sdto);
+        if(s == null)
         {
             return  false;
         }
@@ -107,19 +94,8 @@ public class StudentRepositoryImpl
 
     public boolean existEmail(StudentDTO sdto)
     {
-        String email = sdto.getCorreo();
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Student> query = cb.createQuery(Student.class);
-        Root<Student> root = query.from(Student.class);
-
-        List<Predicate> predicates = new ArrayList<>();
-
-        predicates.add(cb.equal(root.get("correo"), email));
-
-        query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
-
-        List<Student> s = entityManager.createQuery(query).getResultList();
-        if(s.size() == 0)
+        Student s = getStudentbyEmail(sdto);
+        if(s == null)
         {
             return  false;
         }
