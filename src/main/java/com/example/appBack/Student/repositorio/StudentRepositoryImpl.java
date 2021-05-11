@@ -43,7 +43,7 @@ public class StudentRepositoryImpl
             String ciudad = consulta.getCiudad();
             Integer horas_semanales = consulta.getHoras_semanales();
             String especialidad = consulta.getEspecialidad();
-            String estado = consulta.getEstado();
+            //String estado = consulta.getEstado();
             String correo_trabajo = consulta.getCorreo_trabajo();
             String comentarios = consulta.getComentarios();
 
@@ -56,7 +56,7 @@ public class StudentRepositoryImpl
 
             if(comprobarString(ciudad)){ predicates.add(cb.equal(root.get("ciudad"), ciudad));}
             if(comprobarString(especialidad)){ predicates.add(cb.equal(root.get("especialidad"), especialidad));}
-            if(comprobarString(estado)){ predicates.add(cb.equal(root.get("estado"), estado));}
+            //if(comprobarString(estado)){ predicates.add(cb.equal(root.get("estado"), estado));}
             if(comprobarString(comentarios)){ predicates.add(cb.equal(root.get("comentarios"), comentarios));}
 
             if(comprobarString(correo_trabajo)){ predicates.add(cb.equal(root.get("correo_trabajo"), correo_trabajo));}

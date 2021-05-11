@@ -17,9 +17,8 @@ import java.util.Date;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-//@Data
-//@Table(name="student")
-@Getter
+@Data
+@Table(name="student")
 public class Student {
 
     @Id
@@ -96,6 +95,10 @@ public class Student {
     public void setDatos(StudentDTO studentDTO){
         //id null
         this.setNombre(studentDTO.getNombre());
+        if(comprobarString(studentDTO.getNombre()) && !comprobarString(studentDTO.getApellido())){
+            return;
+        }
+
         this.setApellido(studentDTO.getApellido());
         this.setCorreo(studentDTO.getCorreo());
         this.setFecha_entrada(studentDTO.getFecha_entrada());
@@ -126,64 +129,68 @@ public class Student {
     }
 
     private void setCorreo(String correo) {
-        if(comprobarString(apellido))
+        if(comprobarString(correo))
         {
-            this.apellido = apellido;
+            this.correo = correo;
         }
-        this.correo = correo;
     }
 
     private void setFecha_entrada(Date fecha_entrada) {
-        this.fecha_entrada = fecha_entrada;
+        if(comprobarFechas(fecha_entrada)){
+            this.fecha_entrada = fecha_entrada;
+        }
     }
 
     private void setCiudad(String ciudad) {
-        if(comprobarString(apellido))
+        if(comprobarString(ciudad))
         {
-            this.apellido = apellido;
+            this.ciudad = ciudad;
         }
-        this.ciudad = ciudad;
     }
 
     private void setHoras_semanales(Integer horas_semanales) {
-        this.horas_semanales = horas_semanales;
+        if(comprobarNumbers(horas_semanales)){
+            this.horas_semanales = horas_semanales;
+        }
     }
 
     private void setEspecialidad(String especialidad) {
-        if(comprobarString(apellido))
+        if(comprobarString(especialidad))
         {
-            this.apellido = apellido;
+            this.especialidad = especialidad;
         }
-        this.especialidad = especialidad;
     }
 
     private void setEstado(Boolean estado) {
-
-        this.estado = estado;
+        if(comprobarObjects(estado)) {
+            this.estado = estado;
+        }
     }
 
     private void setCorreo_trabajo(String correo_trabajo) {
-        if(comprobarString(apellido))
+        if(comprobarString(correo_trabajo))
         {
-            this.apellido = apellido;
+            this.correo_trabajo = correo_trabajo;
         }
-        this.correo_trabajo = correo_trabajo;
     }
 
     private void setComentarios(String comentarios) {
-        if(comprobarString(apellido))
+        if(comprobarString(comentarios))
         {
-            this.apellido = apellido;
+            this.comentarios = comentarios;
         }
-        this.comentarios = comentarios;
     }
 
     private void setFecha_finalizacion(Date fecha_finalizacion) {
-        this.fecha_finalizacion = fecha_finalizacion;
+        if(comprobarFechas(fecha_finalizacion)){
+            this.fecha_finalizacion = fecha_finalizacion;
+        }
     }
 
     private void setBranch(branch branch) {
-        this.branch = branch;
+        if(comprobarObjects(branch)){
+            this.branch = branch;
+        }
     }
 
     private boolean comprobarString(String str)
@@ -195,7 +202,7 @@ public class Student {
         return false;
     }
 
-    private boolean compararFechas(Date fecha)
+    private boolean comprobarFechas(Date fecha)
     {
         if(fecha != null)
         {
@@ -208,7 +215,7 @@ public class Student {
     {
         try
         {
-            if(Double.parseDouble(num.toString()) > 0)
+            if(num != null && Double.parseDouble(num.toString()) > 0)
             {
                 return true;
             }

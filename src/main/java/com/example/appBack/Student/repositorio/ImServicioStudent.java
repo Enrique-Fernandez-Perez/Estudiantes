@@ -128,9 +128,17 @@ public class ImServicioStudent implements ServicioStudent
         }
 
         try {
-            Student nuevoStudent = new Student(sdto);
+            Optional<Student> stud = studentRepository.findById(id);
+            if(!stud.isEmpty())
+            {
+                Student nuevoStudent = stud.get();
+                nuevoStudent.setDatos(sdto);
+                studentRepository.saveAndFlush(nuevoStudent);
+            }
+
+            /**Student nuevoStudent = new Student(sdto);
             nuevoStudent.setId(id);
-            studentRepository.saveAndFlush(nuevoStudent);
+            studentRepository.saveAndFlush(nuevoStudent);*/
 
             //return ResponseEntity.ok().build();
             return ResponseEntity.ok("Actualizado");
