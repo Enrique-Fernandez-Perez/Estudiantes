@@ -38,7 +38,8 @@ public class StudentDTO {
     private String especialidad;
 
     @NotNull
-    private String estado;
+    private Boolean estado;
+    //private String estado;
 
     //--------------------NUEVOS-----------------------
     @NotNull
@@ -51,8 +52,8 @@ public class StudentDTO {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date fecha_finalizacion;
 
-    /*@NotNull
-    Branch branch;*/
+    @NotNull
+    branch branch;
 
     public static StudentDTO getStudentDTO(Student student){
         return new StudentDTO(student.getNombre(),
@@ -65,8 +66,8 @@ public class StudentDTO {
                 student.getEstado(),
                 student.getCorreo_trabajo(),
                 student.getComentarios(),
-                student.getFecha_finalizacion());/*,
-                student.getBranch());*/
+                student.getFecha_finalizacion(),
+                student.getBranch());
     }
 
     public static List<StudentDTO> getAllDTO(List<Student> listStudent){

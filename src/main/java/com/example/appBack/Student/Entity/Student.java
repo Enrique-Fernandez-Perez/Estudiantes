@@ -59,7 +59,8 @@ public class Student {
     private String especialidad;
 
     @NotNull
-    private String estado;
+    private Boolean estado;
+    //private String estado;
 
     @NotNull
     private String correo_trabajo;
@@ -67,13 +68,12 @@ public class Student {
     @NotNull
     private String comentarios;
 
-    /*@NotNull
-    Branch branch;*/
-
     @NotNull
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date fecha_finalizacion;
 
+    @NotNull
+    branch branch;
 
     public Student(StudentDTO studentDTO){
         //id null
@@ -88,7 +88,7 @@ public class Student {
         this.comentarios = studentDTO.getComentarios();
         this.fecha_finalizacion = studentDTO.getFecha_finalizacion();
         this.correo_trabajo = studentDTO.getCorreo_trabajo();
-        //this.branch = studentDTO.getBranch();
+        this.branch = studentDTO.getBranch();
     }
 
 }
