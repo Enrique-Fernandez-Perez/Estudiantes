@@ -14,7 +14,6 @@ import java.util.Optional;
 
 @SpringBootApplication
 @EnableSwagger2
-@EnableJpaRepositories
 public class AppBackApplication implements CommandLineRunner
 {
 	public static void main(String[] args)
