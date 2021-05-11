@@ -93,6 +93,10 @@ public class ImServicioStudent implements ServicioStudent
             return ResponseEntity.status(401).build();
         }
 
+        Student nuevoStudent = studentRepository.findById(id).get();
+        nuevoStudent.setDatos(sdto);
+        sdto = StudentDTO.getStudentDTO(nuevoStudent);
+
         if(!compararFechas(sdto))
         {
             return ResponseEntity.ok("Fechas incorrectas");
@@ -117,8 +121,12 @@ public class ImServicioStudent implements ServicioStudent
                 return ResponseEntity.ok("ERROR, nombre y apellidos repetidos");
             }
         }
-            Student nuevoStudent = new Student(sdto);
+            /*Student nuevoStudent = new Student(sdto);
             nuevoStudent.setId(id);
+            studentRepository.saveAndFlush(nuevoStudent);*/
+
+
+
             studentRepository.saveAndFlush(nuevoStudent);
 
             return ResponseEntity.ok("Actualizado");
