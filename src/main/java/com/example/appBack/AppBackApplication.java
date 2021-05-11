@@ -1,6 +1,6 @@
 package com.example.appBack;
 
-import com.example.appBack.Student.Entity.Student;
+
 import com.example.appBack.Student.repositorio.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
