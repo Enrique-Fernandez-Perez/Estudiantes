@@ -121,10 +121,9 @@ public class ImServicioStudent implements ServicioStudent
                 return ResponseEntity.ok("ERROR, nombre y apellidos repetidos");
             }
         }
-            /*Student nuevoStudent = new Student(sdto);
+            /**Student nuevoStudent = new Student(sdto);
             nuevoStudent.setId(id);
             studentRepository.saveAndFlush(nuevoStudent);*/
-
 
 
             studentRepository.saveAndFlush(nuevoStudent);

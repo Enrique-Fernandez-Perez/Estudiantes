@@ -3,6 +3,7 @@ package com.example.appBack.Student.repositorio;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -66,12 +67,18 @@ public class StudentRepositoryImpl
 
     public boolean existNameSurname(StudentDTO sdto)
     {
-        Student s = getStudentbyNameSurname(sdto);
-        if(s == null)
+        try{
+            Student s = getStudentbyNameSurname(sdto);
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
+        /*if(s == null)
         {
             return  false;
         }
-        return true;
+        return true;*/
     }
 
     public Student getStudentbyNameSurname(StudentDTO sdto)
@@ -94,12 +101,13 @@ public class StudentRepositoryImpl
 
     public boolean existEmail(StudentDTO sdto)
     {
-        Student s = getStudentbyEmail(sdto);
-        if(s == null)
-        {
-            return  false;
+        try{
+            Student s = getStudentbyEmail(sdto);
+            return true;
         }
-        return true;
+        catch (Exception e){
+            return false;
+        }
     }
 
     public Student getStudentbyEmail(StudentDTO sdto)
