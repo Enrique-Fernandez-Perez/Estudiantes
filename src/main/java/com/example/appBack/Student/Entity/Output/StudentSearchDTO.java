@@ -46,15 +46,13 @@ public class StudentSearchDTO {
     @NotNull
     private String correo_trabajo;
 
-    @NotNull
     private String comentarios;
 
-    @NotNull
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date fecha_finalizacion;
 
     @NotNull
-    com.example.appBack.Student.Entity.branch branch;
+    branch branch;
 
     public static StudentSearchDTO getStudentSearchDTO(Student student){
         return new StudentSearchDTO(student.getNombre(),

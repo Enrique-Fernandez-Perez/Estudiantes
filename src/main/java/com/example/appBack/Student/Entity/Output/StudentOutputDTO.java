@@ -18,6 +18,8 @@ import java.util.List;
 @AllArgsConstructor
 public class StudentOutputDTO
 {
+    private String id;
+
     @NotNull
     private String nombre;
 
@@ -46,10 +48,8 @@ public class StudentOutputDTO
     @NotNull
     private String correo_trabajo;
 
-    @NotNull
     private String comentarios;
 
-    @NotNull
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date fecha_finalizacion;
 
@@ -57,7 +57,8 @@ public class StudentOutputDTO
     branch branch;
 
     public static StudentOutputDTO getStudentOutputDTO(Student student){
-        return new StudentOutputDTO(student.getNombre(),
+        return new StudentOutputDTO(student.getId(),
+                student.getNombre(),
                 student.getApellido(),
                 student.getCorreo(),
                 student.getFecha_entrada(),
