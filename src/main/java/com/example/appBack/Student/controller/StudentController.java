@@ -60,7 +60,7 @@ public class StudentController {
     public List<StudentDTO> getStudentConsulta(@RequestBody StudentDTO buscar)
     {
         try {
-            return servicioStudent.getConsulaCampo(buscar);
+            return servicioStudent.getConsultaCampo(buscar);
         }
         catch (Exception e)
         {

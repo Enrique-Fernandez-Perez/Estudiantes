@@ -18,21 +18,7 @@ public interface ServicioStudent
 
     ResponseEntity updateStudent(String id, StudentDTO sdto);
 
-    List<StudentDTO> getConsulaCampo(StudentDTO aConsultar);
+    List<StudentDTO> getConsultaCampo(StudentDTO aConsultar);
 
     List<StudentDTO> getAll();
-
-    /*ResponseEntity validar(StudentDTO estudiante, String accion, String id);
-
-    List<StudentDTO> getAll();
-
-    List<StudentDTO> getCompararValores(StudentDTO insertado, ArrayList<String> columnas);
-
-    ArrayList<String> getAllColums();
-
-    ArrayList<String> getAllColums(String id);
-
-    ArrayList<String> getColum(Integer numCampos, Integer posicionPrimerCampo);
-
-    ArrayList<String> getColum(String id, Integer numCampos, Integer posicionPrimerCampo);*/
 }

@@ -70,6 +70,12 @@ public class StudentDTO {
                 student.getBranch());
     }
 
+    public static StudentDTO transforToStudentDTO(Object object){
+        return null;
+    }
+
+
+
     public static List<StudentDTO> getAllDTO(List<Student> listStudent){
         List<StudentDTO> devolver = new ArrayList<>();
         listStudent.forEach(student -> devolver.add(getStudentDTO(student)));
