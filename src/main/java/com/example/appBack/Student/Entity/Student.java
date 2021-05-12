@@ -192,19 +192,23 @@ public class Student {
 
     private boolean comprobarString(String str)
     {
-        if (str.length() != 0 && str != null)
-        {
-            return true;
-        }
+        try {
+            if (str.trim().length() != 0 && str != null)
+            {
+                return true;
+            }
+        }catch (Exception e) { }
         return false;
     }
 
     private boolean comprobarFechas(Date fecha)
     {
-        if(fecha != null)
-        {
-            return true;
-        }
+        try {
+            if (fecha != null) {
+                return true;
+            }
+
+        }catch(Exception e){e.printStackTrace();}
         return false;
     }
 
@@ -223,9 +227,11 @@ public class Student {
 
     private boolean comprobarObjects(Object objeto)
     {
-        if(objeto != null){
-            return true;
-        }
+        try {
+            if (objeto != null) {
+                return true;
+            }
+        }catch(Exception e){ }
         return false;
     }
 }
