@@ -12,6 +12,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import com.example.appBack.Student.Entity.Student;
 import com.example.appBack.Student.Entity.StudentDTO;
+import com.example.appBack.Student.Entity.branch;
 
 public class StudentRepositoryImpl
 {
@@ -32,27 +33,32 @@ public class StudentRepositoryImpl
             String apellido = consulta.getApellido();
             String correo = consulta.getCorreo();
             Date fecha_entrada = consulta.getFecha_entrada();
+
             Date fecha_finalizacion = consulta.getFecha_finalizacion();
             String ciudad = consulta.getCiudad();
             Integer horas_semanales = consulta.getHoras_semanales();
             String especialidad = consulta.getEspecialidad();
+
             String correo_trabajo = consulta.getCorreo_trabajo();
             String comentarios = consulta.getComentarios();
+            Boolean estado = consulta.getEstado();
+            branch branch= consulta.getBranch();
 
 
             if(comprobarString(nombre)){ predicates.add(cb.equal(root.get("nombre"), nombre));}
             if(comprobarString(apellido)){ predicates.add(cb.equal(root.get("apellido"), apellido));}
             if(comprobarString(correo)){ predicates.add(cb.equal(root.get("correo"), correo));}
-            if(compararFechas(fecha_entrada)){ predicates.add(cb.equal(root.get("fecha_entrada"), fecha_entrada));}
-            if(compararFechas(fecha_finalizacion)){ predicates.add(cb.equal(root.get("fecha_finalizacion"), fecha_finalizacion));}
+            if(comprobarFechas(fecha_entrada)){ predicates.add(cb.equal(root.get("fecha_entrada"), fecha_entrada));}
 
+            if(comprobarFechas(fecha_finalizacion)){ predicates.add(cb.equal(root.get("fecha_finalizacion"), fecha_finalizacion));}
             if(comprobarString(ciudad)){ predicates.add(cb.equal(root.get("ciudad"), ciudad));}
             if(comprobarString(especialidad)){ predicates.add(cb.equal(root.get("especialidad"), especialidad));}
             if(comprobarString(comentarios)){ predicates.add(cb.equal(root.get("comentarios"), comentarios));}
 
             if(comprobarString(correo_trabajo)){ predicates.add(cb.equal(root.get("correo_trabajo"), correo_trabajo));}
             if(comprobarNumbers(horas_semanales)){ predicates.add(cb.equal(root.get("horas_semanales"), horas_semanales));}
-
+            if(comprobarObjects(estado)){ predicates.add(cb.equal(root.get("estado"), estado));}
+            if(comprobarObjects(branch)){ predicates.add(cb.equal(root.get("branch"), branch));}
 
             query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
             List<Student> lista = new ArrayList<>();
@@ -63,6 +69,11 @@ public class StudentRepositoryImpl
             System.err.println(e.getMessage()+"");
             return new ArrayList<>();
         }
+    }
+
+    private CriteriaBuilder addLike()
+    {
+        return null;
     }
 
     public boolean existNameSurname(StudentDTO sdto)
@@ -121,24 +132,6 @@ public class StudentRepositoryImpl
         return entityManager.createQuery(query).getSingleResult();
     }
 
-    private boolean comprobarString(String str)
-    {
-        if (str.length() != 0)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean compararFechas(Date fecha)
-    {
-        if(fecha != null)
-        {
-            return true;
-        }
-        return false;
-    }
-
     private boolean comprobarNumbers(Object num)//Number num)
     {
         try
@@ -149,6 +142,38 @@ public class StudentRepositoryImpl
             }
         }
         catch (NumberFormatException e){}
+        return false;
+    }
+
+    private boolean comprobarString(String str)
+    {
+        try {
+            if (str.trim().length() != 0 && str != null)
+            {
+                return true;
+            }
+        }catch (Exception e) { }
+        return false;
+    }
+
+    private boolean comprobarFechas(Date fecha)
+    {
+        try {
+            if (fecha != null) {
+                return true;
+            }
+
+        }catch(Exception e){e.printStackTrace();}
+        return false;
+    }
+
+    private boolean comprobarObjects(Object objeto)
+    {
+        try {
+            if (objeto != null) {
+                return true;
+            }
+        }catch(Exception e){ }
         return false;
     }
 }

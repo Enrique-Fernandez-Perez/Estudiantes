@@ -145,13 +145,22 @@ public class ImServicioStudent implements ServicioStudent
 
     private boolean compararFechas(StudentDTO sdto)
     {
-        Date fecha1 = sdto.getFecha_entrada();
-        Date fecha2 = sdto.getFecha_finalizacion();
+        try{
+            Date fecha1 = sdto.getFecha_entrada();
+            Date fecha2 = sdto.getFecha_finalizacion();
 
-        if(fecha1 == null || fecha2 == null)
-        {
+            if(fecha1 != null && fecha2 == null){
+                return true;
+            }
+            if(fecha1 != null && fecha2 != null){
+                return fecha1.before(fecha2);
+            }
+
+            return fecha1.before(fecha2);
+        }
+        catch (Exception e){
+            e.printStackTrace();
             return false;
         }
-        return fecha1.before(fecha2);
     }
 }
