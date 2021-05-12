@@ -98,7 +98,7 @@ public class StudentRepositoryImpl
                 return true;
             }
         }
-        catch (NumberFormatException e){}
+        catch (Exception e){e.printStackTrace();}
         return false;
     }
 
@@ -109,7 +109,7 @@ public class StudentRepositoryImpl
             {
                 return true;
             }
-        }catch (Exception e) { }
+        }catch (Exception e) {e.printStackTrace(); }
         return false;
     }
 
@@ -117,9 +117,13 @@ public class StudentRepositoryImpl
     {
         try {
             if (objeto != null) {
+                if(comprobarString(objeto.toString())){
+                    return comprobarString(objeto.toString());}
                 return true;
             }
-        }catch(Exception e){ }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         return false;
     }
 }
