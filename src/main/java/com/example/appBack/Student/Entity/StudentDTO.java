@@ -5,7 +5,7 @@ import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.dom4j.Branch;
+
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -71,10 +71,19 @@ public class StudentDTO {
     }
 
     public static StudentDTO transforToStudentDTO(Object object){
+        if(object.getClass().toString().equalsIgnoreCase("StudentOutputDTO")){
+
+        }
+
+        if(object.getClass().toString().equalsIgnoreCase("StudentSearchDTO")){
+
+        }
+
+        if(object.getClass().toString().equalsIgnoreCase("StudentInputDTO")){
+
+        }
         return null;
     }
-
-
 
     public static List<StudentDTO> getAllDTO(List<Student> listStudent){
         List<StudentDTO> devolver = new ArrayList<>();

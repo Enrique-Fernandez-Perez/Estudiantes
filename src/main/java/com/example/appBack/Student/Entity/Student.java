@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.dom4j.Branch;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -95,9 +95,6 @@ public class Student {
     public void setDatos(StudentDTO studentDTO){
         //id null
         this.setNombre(studentDTO.getNombre());
-        if(comprobarString(studentDTO.getNombre()) && !comprobarString(studentDTO.getApellido())){
-            return;
-        }
 
         this.setApellido(studentDTO.getApellido());
         this.setCorreo(studentDTO.getCorreo());
