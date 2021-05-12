@@ -69,22 +69,18 @@ public class ImServicioStudent implements ServicioStudent
         }
         else
         {
-            return  StudentDTO.getAllDTO(lista);
+            return StudentDTO.getAllDTO(lista);
         }
     }
 
     @Override
     public StudentDTO deleteStudent(String id)
     {
-        if(studentRepository.existsById(id)==true){}
-        /**{
-           studentRepository.deleteById(id);
-           return ResponseEntity.ok().build();
+        if(studentRepository.existsById(id)==true) {
+            studentRepository.deleteById(id);
+            Student student = studentRepository.getOne(id);
+            return StudentDTO.getStudentDTO(student);
         }
-        else{
-            return ResponseEntity.badRequest().build();
-        }*/
-
         return null;
     }
 

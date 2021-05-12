@@ -41,7 +41,7 @@ public class StudentRepositoryImpl
             String apellido = consulta.getApellido();
             String correo = consulta.getCorreo();
             Date fecha_entrada = consulta.getFecha_entrada();
-
+    
             Date fecha_finalizacion = consulta.getFecha_finalizacion();
             String ciudad = consulta.getCiudad();
             Integer horas_semanales = consulta.getHoras_semanales();
@@ -53,20 +53,49 @@ public class StudentRepositoryImpl
             branch branch= consulta.getBranch();
 
 
-            if(comprobarString(nombre)){ predicates.add(cb.equal(root.get("nombre"), nombre));}
-            if(comprobarString(apellido)){ predicates.add(cb.equal(root.get("apellido"), apellido));}
-            if(comprobarString(correo)){ predicates.add(cb.equal(root.get("correo"), correo));}
+            if(comprobarString(nombre)){
+                predicates.add(cb.equal(root.get("nombre"), nombre));
+            }
+
+            if(comprobarString(apellido)){
+                predicates.add(cb.equal(root.get("apellido"), apellido));
+            }
+
+            if(comprobarString(correo)){
+                predicates.add(cb.equal(root.get("correo"), correo));
+            }
+
             //if(comprobarFechas(fecha_entrada)){ predicates.add(cb.equal(root.get("fecha_entrada"), fecha_entrada));}
 
             //if(comprobarFechas(fecha_finalizacion)){ predicates.add(cb.equal(root.get("fecha_finalizacion"), fecha_finalizacion));}
-            if(comprobarString(ciudad)){ predicates.add(cb.equal(root.get("ciudad"), ciudad));}
-            if(comprobarString(especialidad)){ predicates.add(cb.equal(root.get("especialidad"), especialidad));}
-            if(comprobarString(comentarios)){ predicates.add(cb.equal(root.get("comentarios"), comentarios));}
 
-            if(comprobarString(correo_trabajo)){ predicates.add(cb.equal(root.get("correo_trabajo"), correo_trabajo));}
-            if(comprobarNumbers(horas_semanales)){ predicates.add(cb.equal(root.get("horas_semanales"), horas_semanales));}
-            if(comprobarObjects(estado)){ predicates.add(cb.equal(root.get("estado"), estado));}
-            if(comprobarObjects(branch)){ predicates.add(cb.equal(root.get("branch"), branch));}
+            if(comprobarString(ciudad)){
+                predicates.add(cb.equal(root.get("ciudad"), ciudad));
+            }
+
+            if(comprobarString(especialidad)){
+                predicates.add(cb.equal(root.get("especialidad"), especialidad));
+            }
+
+            if(comprobarString(comentarios)){
+                predicates.add(cb.equal(root.get("comentarios"), comentarios));
+            }
+
+            if(comprobarString(correo_trabajo)){
+                predicates.add(cb.equal(root.get("correo_trabajo"), correo_trabajo));
+            }
+
+            if(comprobarNumbers(horas_semanales)){
+                predicates.add(cb.equal(root.get("horas_semanales"), horas_semanales));
+            }
+
+            if(comprobarObjects(estado)){
+                predicates.add(cb.equal(root.get("estado"), estado));
+            }
+
+            if(comprobarObjects(branch)){
+                predicates.add(cb.equal(root.get("branch"), branch));
+            }
 
             query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
             List<Student> lista = new ArrayList<>();
@@ -92,7 +121,7 @@ public class StudentRepositoryImpl
 
     private void addLike(String nameColum, Object objeto)
     {
-
+        //Implementar
     }
 
     private boolean comprobarNumbers(Object num)//Number num)
