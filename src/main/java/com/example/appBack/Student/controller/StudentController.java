@@ -1,17 +1,12 @@
 package com.example.appBack.Student.controller;
 
-import com.example.appBack.Student.Entity.Input.StudentInputDTO;
-import com.example.appBack.Student.Entity.Student;
 import com.example.appBack.Student.Entity.StudentDTO;
 import com.example.appBack.Student.repositorio.ServicioStudent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.support.NullValue;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class StudentController {
@@ -20,9 +15,9 @@ public class StudentController {
     ServicioStudent servicioStudent;
 
     @PostMapping("/addStudent")
-    public ResponseEntity addStudent(@RequestBody StudentInputDTO studentInputDTO)
+    public ResponseEntity addStudent(@RequestBody StudentDTO studentDTO)
     {
-        return servicioStudent.addStudent(studentInputDTO);
+        return servicioStudent.addStudent(studentDTO);
     }
 
     @GetMapping("/getStudent/{id}")

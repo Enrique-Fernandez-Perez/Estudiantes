@@ -3,7 +3,6 @@ package com.example.appBack.Student.repositorio;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -19,15 +18,24 @@ public class StudentRepositoryImpl
     @PersistenceContext
     private EntityManager entityManager;
 
+    private CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    private CriteriaQuery<Student> query = cb.createQuery(Student.class);
+    private Root<Student> root = query.from(Student.class);
+    private List<Predicate> predicates = new ArrayList<>();
+
+    private void resetQueries()
+    {
+        cb = entityManager.getCriteriaBuilder();
+        query = cb.createQuery(Student.class);
+        root = query.from(Student.class);
+        predicates = new ArrayList<>();
+    }
+
     public List<StudentDTO> getQuery(StudentDTO consulta)
     {
         try
         {
-            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-            CriteriaQuery<Student> query = cb.createQuery(Student.class);
-            Root<Student> root = query.from(Student.class);
-
-            List<Predicate> predicates = new ArrayList<>();
+            resetQueries();
 
             String nombre = consulta.getNombre();
             String apellido = consulta.getApellido();
@@ -48,9 +56,9 @@ public class StudentRepositoryImpl
             if(comprobarString(nombre)){ predicates.add(cb.equal(root.get("nombre"), nombre));}
             if(comprobarString(apellido)){ predicates.add(cb.equal(root.get("apellido"), apellido));}
             if(comprobarString(correo)){ predicates.add(cb.equal(root.get("correo"), correo));}
-            if(comprobarFechas(fecha_entrada)){ predicates.add(cb.equal(root.get("fecha_entrada"), fecha_entrada));}
+            //if(comprobarFechas(fecha_entrada)){ predicates.add(cb.equal(root.get("fecha_entrada"), fecha_entrada));}
 
-            if(comprobarFechas(fecha_finalizacion)){ predicates.add(cb.equal(root.get("fecha_finalizacion"), fecha_finalizacion));}
+            //if(comprobarFechas(fecha_finalizacion)){ predicates.add(cb.equal(root.get("fecha_finalizacion"), fecha_finalizacion));}
             if(comprobarString(ciudad)){ predicates.add(cb.equal(root.get("ciudad"), ciudad));}
             if(comprobarString(especialidad)){ predicates.add(cb.equal(root.get("especialidad"), especialidad));}
             if(comprobarString(comentarios)){ predicates.add(cb.equal(root.get("comentarios"), comentarios));}
@@ -71,65 +79,14 @@ public class StudentRepositoryImpl
         }
     }
 
-    private CriteriaBuilder addLike()
+    private void addEquals(String nameColum, Object objeto)
     {
-        return null;
+        if(comprobarObjects(objeto)){ predicates.add(cb.equal(root.get(nameColum), objeto));}
     }
 
-    public boolean existNameSurname(StudentDTO sdto)
+    private void addLike(String nameColum, Object objeto)
     {
-        try{
-            Student s = getStudentbyNameSurname(sdto);
-            return true;
-        }
-        catch (Exception e){
-            return false;
-        }
-    }
 
-    public Student getStudentbyNameSurname(StudentDTO sdto)
-    {
-        String name = sdto.getNombre();
-        String surname = sdto.getApellido();
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Student> query = cb.createQuery(Student.class);
-        Root<Student> root = query.from(Student.class);
-
-        List<Predicate> predicates = new ArrayList<>();
-
-        predicates.add(cb.equal(root.get("nombre"), name));
-        predicates.add(cb.equal(root.get("apellido"), surname));
-
-        query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
-
-        return entityManager.createQuery(query).getSingleResult();
-    }
-
-    public boolean existEmail(StudentDTO sdto)
-    {
-        try{
-            Student s = getStudentbyEmail(sdto);
-            return true;
-        }
-        catch (Exception e){
-            return false;
-        }
-    }
-
-    public Student getStudentbyEmail(StudentDTO sdto)
-    {
-        String email = sdto.getCorreo();
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Student> query = cb.createQuery(Student.class);
-        Root<Student> root = query.from(Student.class);
-
-        List<Predicate> predicates = new ArrayList<>();
-
-        predicates.add(cb.equal(root.get("correo"), email));
-
-        query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
-
-        return entityManager.createQuery(query).getSingleResult();
     }
 
     private boolean comprobarNumbers(Object num)//Number num)
@@ -153,17 +110,6 @@ public class StudentRepositoryImpl
                 return true;
             }
         }catch (Exception e) { }
-        return false;
-    }
-
-    private boolean comprobarFechas(Date fecha)
-    {
-        try {
-            if (fecha != null) {
-                return true;
-            }
-
-        }catch(Exception e){e.printStackTrace();}
         return false;
     }
 

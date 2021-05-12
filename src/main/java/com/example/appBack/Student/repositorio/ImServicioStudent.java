@@ -1,12 +1,12 @@
 package com.example.appBack.Student.repositorio;
 
-import com.example.appBack.Student.Entity.Input.StudentInputDTO;
 import com.example.appBack.Student.Entity.Student;
 import com.example.appBack.Student.Entity.StudentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import java.util.*;
+import java.util.concurrent.RecursiveTask;
 
 @Component
 public class ImServicioStudent implements ServicioStudent
@@ -17,16 +17,16 @@ public class ImServicioStudent implements ServicioStudent
     private ArrayList<String> campos = new ArrayList<String>();
 
     @Override
-    public ResponseEntity addStudent(StudentInputDTO sdito)
+    public ResponseEntity addStudent(StudentDTO sdto)
     {
-        try {
-            StudentDTO sdto = sdito.InputToDTO();//StudentInputDTO.InputToDTO(sdito);
+        /**try {
+
         if(!compararFechas(sdto))
         {
             return ResponseEntity.ok("Fechas incorrectas");
         }
 
-        if(studentRepository.existEmail(sdto))
+        /** if(studentRepository.existEmail(sdto))
         {
             return ResponseEntity.ok("ERROR Email Existente");
         }
@@ -43,7 +43,8 @@ public class ImServicioStudent implements ServicioStudent
         catch (Exception e)
         {
             return ResponseEntity.ok("VALOR NULL");
-        }
+        }*/
+        return null;
     }
 
     @Override
@@ -75,20 +76,22 @@ public class ImServicioStudent implements ServicioStudent
     @Override
     public ResponseEntity deleteStudent(String id)
     {
-        if(studentRepository.existsById(id)==true)
-        {
+        if(studentRepository.existsById(id)==true){}
+        /**{
            studentRepository.deleteById(id);
            return ResponseEntity.ok().build();
         }
         else{
             return ResponseEntity.badRequest().build();
-        }
+        }*/
+
+        return null;
     }
 
     @Override
     public ResponseEntity updateStudent(String id, StudentDTO sdto)
     {
-        try {
+        /*try {
         if(!studentRepository.existsById(id))
         {
             return ResponseEntity.status(401).body("ID de Estudiante inexistente/no encontrado");
@@ -122,12 +125,8 @@ public class ImServicioStudent implements ServicioStudent
                 return ResponseEntity.badRequest().body("ERROR, nombre y apellidos repetidos");
             }
         }
-            /**Student nuevoStudent = new Student(sdto);
-            nuevoStudent.setId(id);
-            studentRepository.saveAndFlush(nuevoStudent);*/
 
-
-            studentRepository.saveAndFlush(nuevoStudent);
+            /*studentRepository.saveAndFlush(nuevoStudent);
 
             return ResponseEntity.ok("Actualizado");
 
@@ -135,7 +134,8 @@ public class ImServicioStudent implements ServicioStudent
         catch (Exception e)
         {
             return ResponseEntity.badRequest().body("ALGUN VALOR INTRODUCIDO ES NULO, NO SE ACEPTAN NULOS");
-        }
+        }*/
+        return null;
     }
 
     @Override

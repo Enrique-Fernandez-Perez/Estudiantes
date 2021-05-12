@@ -1,7 +1,6 @@
 package com.example.appBack.Student.Entity.Output;
 
 import com.example.appBack.Student.Entity.Student;
-import com.example.appBack.Student.Entity.StudentDTO;
 import com.example.appBack.Student.Entity.branch;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
