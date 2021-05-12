@@ -58,10 +58,10 @@ public class StudentController {
     }
 
     @GetMapping("/getStudent")
-    public List<StudentDTO> getStudentConsulta(@RequestBody StudentDTO buscar)
+    public List<StudentDTO> getStudentConsulta(@RequestBody StudentDTO buscarStudentbyStudentDTO)
     {
         try {
-            return servicioStudent.getConsultaCampo(buscar);
+            return servicioStudent.getConsultaCampo(buscarStudentbyStudentDTO);
         }
         catch (Exception e)
         {

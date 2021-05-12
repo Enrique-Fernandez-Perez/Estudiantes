@@ -1,11 +1,9 @@
 package com.example.appBack.Student.Entity;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -78,18 +76,21 @@ public class Student {
 
     public Student(StudentDTO studentDTO){
         //id null
-        this.nombre=studentDTO.getNombre();
-        this.apellido=studentDTO.getApellido();
-        this.correo=studentDTO.getCorreo();
-        this.fecha_entrada=studentDTO.getFecha_entrada();
-        this.ciudad=studentDTO.getCiudad();
-        this.horas_semanales=studentDTO.getHoras_semanales();
-        this.especialidad=studentDTO.getEspecialidad();
-        this.estado=studentDTO.getEstado();
-        this.comentarios = studentDTO.getComentarios();
-        this.fecha_finalizacion = studentDTO.getFecha_finalizacion();
-        this.correo_trabajo = studentDTO.getCorreo_trabajo();
-        this.branch = studentDTO.getBranch();
+        Date fecha = new Date();
+        this.nombre="";//studentDTO.getNombre();
+        this.apellido="";//studentDTO.getApellido();
+        this.correo="";//studentDTO.getCorreo();
+        this.fecha_entrada=fecha;//studentDTO.getFecha_entrada();
+        this.ciudad="";//studentDTO.getCiudad();
+        this.horas_semanales=10;//studentDTO.getHoras_semanales();
+        this.especialidad="";//studentDTO.getEspecialidad();
+        this.estado=true;//studentDTO.getEstado();
+        this.comentarios = "";//studentDTO.getComentarios();
+        this.fecha_finalizacion = fecha;//studentDTO.getFecha_finalizacion();
+        this.correo_trabajo = "";//studentDTO.getCorreo_trabajo();
+        this.branch = branch.FRONT;//studentDTO.getBranch();
+
+        this.setDatos(studentDTO);
     }
 
     public void setDatos(StudentDTO studentDTO){
