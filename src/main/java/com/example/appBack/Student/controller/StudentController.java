@@ -1,5 +1,6 @@
 package com.example.appBack.Student.controller;
 
+import com.example.appBack.Student.Entity.Student;
 import com.example.appBack.Student.Entity.StudentDTO;
 import com.example.appBack.Student.repositorio.ServicioStudent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,12 @@ public class StudentController {
     @PostMapping("/addStudent")
     public ResponseEntity addStudent(@RequestBody StudentDTO studentDTO)
     {
-        return servicioStudent.addStudent(studentDTO);
+        try {
+            Student student = servicioStudent.addStudent(studentDTO);
+            return ResponseEntity.ok(student);
+        }catch(Exception e){
+            return ResponseEntity.badRequest().body(e);
+        }
     }
 
     @GetMapping("/getStudent/{id}")
@@ -31,11 +37,10 @@ public class StudentController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteStudentById(@PathVariable String id){
         try {
-            return servicioStudent.deleteStudent(id);
-        }
-        catch (Exception e)
-        {
-            return ResponseEntity.status(500).build();
+            StudentDTO student = servicioStudent.deleteStudent(id);
+            return ResponseEntity.ok(student);
+        }catch(Exception e){
+            return ResponseEntity.badRequest().body(e);
         }
 
     }
@@ -44,12 +49,11 @@ public class StudentController {
     public ResponseEntity updateStudent(@PathVariable String id, @RequestBody StudentDTO studentDTO)
     {
         try {
-            return servicioStudent.updateStudent(id,studentDTO);
-        }
-        catch (Exception e)
-        {
-            return ResponseEntity.status(500).build();
-        }
+        Student student = servicioStudent.updateStudent(id,studentDTO);
+        return ResponseEntity.ok(student);
+            }catch(Exception e){
+        return ResponseEntity.badRequest().body(e);
+    }
     }
 
     @GetMapping("/getStudent")

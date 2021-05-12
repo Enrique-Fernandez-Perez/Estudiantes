@@ -17,7 +17,7 @@ public class ImServicioStudent implements ServicioStudent
     private ArrayList<String> campos = new ArrayList<String>();
 
     @Override
-    public ResponseEntity addStudent(StudentDTO sdto)
+    public Student addStudent(StudentDTO sdto)
     {
         /**try {
 
@@ -74,7 +74,7 @@ public class ImServicioStudent implements ServicioStudent
     }
 
     @Override
-    public ResponseEntity deleteStudent(String id)
+    public StudentDTO deleteStudent(String id)
     {
         if(studentRepository.existsById(id)==true){}
         /**{
@@ -89,7 +89,7 @@ public class ImServicioStudent implements ServicioStudent
     }
 
     @Override
-    public ResponseEntity updateStudent(String id, StudentDTO sdto)
+    public Student updateStudent(String id, StudentDTO sdto)
     {
         /*try {
         if(!studentRepository.existsById(id))
@@ -128,7 +128,7 @@ public class ImServicioStudent implements ServicioStudent
 
             /*studentRepository.saveAndFlush(nuevoStudent);
 
-            return ResponseEntity.ok("Actualizado");
+                return nuevoStudent;
 
         }
         catch (Exception e)
