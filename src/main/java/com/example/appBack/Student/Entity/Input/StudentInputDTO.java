@@ -2,6 +2,7 @@ package com.example.appBack.Student.Entity.Input;
 
 import com.example.appBack.Student.Entity.Output.StudentOutputDTO;
 import com.example.appBack.Student.Entity.Student;
+import com.example.appBack.Student.Entity.StudentDTO;
 import com.example.appBack.Student.Entity.branch;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
@@ -67,6 +68,30 @@ public class StudentInputDTO {
                 student.getComentarios(),
                 student.getFecha_finalizacion(),
                 student.getBranch());
+    }
+
+    public StudentDTO InputToDTO(){
+       return new StudentDTO(this.getNombre(),this.getApellido(),this.getCorreo(),
+                this.getFecha_entrada(),this.getCiudad(),this.getHoras_semanales(),
+                this.getEspecialidad(),this.isEstado(),this.getCorreo_trabajo(),this.getComentarios(),
+                        this.getFecha_finalizacion(),this.getBranch());
+        /*try {
+            return new StudentDTO(studentInputDTO.getNombre(),
+                    studentInputDTO.getApellido(),
+                    studentInputDTO.getCorreo(),
+                    studentInputDTO.getFecha_entrada(),
+                    studentInputDTO.getCiudad(),
+                    studentInputDTO.getHoras_semanales(),
+                    studentInputDTO.getEspecialidad(),
+                    studentInputDTO.isEstado(),
+                    studentInputDTO.getCorreo_trabajo(),
+                    studentInputDTO.getComentarios(),
+                    studentInputDTO.getFecha_finalizacion(),
+                    studentInputDTO.getBranch());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;*/
     }
 
     public static List<StudentInputDTO> getAllDTO(List<Student> listStudent){

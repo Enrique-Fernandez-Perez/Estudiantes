@@ -1,5 +1,6 @@
 package com.example.appBack.Student.repositorio;
 
+import com.example.appBack.Student.Entity.Input.StudentInputDTO;
 import com.example.appBack.Student.Entity.Student;
 import com.example.appBack.Student.Entity.StudentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,10 @@ public class ImServicioStudent implements ServicioStudent
     private ArrayList<String> campos = new ArrayList<String>();
 
     @Override
-    public ResponseEntity addStudent(StudentDTO sdto)
+    public ResponseEntity addStudent(StudentInputDTO sdito)
     {
         try {
-
+            StudentDTO sdto = sdito.InputToDTO();//StudentInputDTO.InputToDTO(sdito);
         if(!compararFechas(sdto))
         {
             return ResponseEntity.ok("Fechas incorrectas");

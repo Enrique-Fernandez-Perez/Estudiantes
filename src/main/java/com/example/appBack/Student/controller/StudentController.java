@@ -1,5 +1,6 @@
 package com.example.appBack.Student.controller;
 
+import com.example.appBack.Student.Entity.Input.StudentInputDTO;
 import com.example.appBack.Student.Entity.Student;
 import com.example.appBack.Student.Entity.StudentDTO;
 import com.example.appBack.Student.repositorio.ServicioStudent;
@@ -19,9 +20,9 @@ public class StudentController {
     ServicioStudent servicioStudent;
 
     @PostMapping("/addStudent")
-    public ResponseEntity addStudent(@RequestBody StudentDTO studentDTO)
+    public ResponseEntity addStudent(@RequestBody StudentInputDTO studentInputDTO)
     {
-        return servicioStudent.addStudent(studentDTO);
+        return servicioStudent.addStudent(studentInputDTO);
     }
 
     @GetMapping("/getStudent/{id}")

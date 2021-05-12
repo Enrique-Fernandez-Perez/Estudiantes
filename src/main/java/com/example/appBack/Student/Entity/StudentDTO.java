@@ -45,10 +45,8 @@ public class StudentDTO {
     @NotNull
     private String correo_trabajo;
 
-    @NotNull
     private String comentarios;
 
-    @NotNull
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date fecha_finalizacion;
 
