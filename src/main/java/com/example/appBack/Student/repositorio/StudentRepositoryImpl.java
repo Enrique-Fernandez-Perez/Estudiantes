@@ -23,6 +23,7 @@ public class StudentRepositoryImpl
     private Root<Student> root = query.from(Student.class);
     private List<Predicate> predicates = new ArrayList<>();
 
+
     private void resetQueries()
     {
         cb = entityManager.getCriteriaBuilder();
@@ -31,70 +32,43 @@ public class StudentRepositoryImpl
         predicates = new ArrayList<>();
     }
 
-    public List<StudentDTO> getQuery(StudentDTO consulta)
+    public List<StudentDTO> getQueryEquals(StudentDTO consulta)
     {
         try
         {
             resetQueries();
 
-            String nombre = consulta.getNombre();
-            String apellido = consulta.getApellido();
-            String correo = consulta.getCorreo();
-            Date fecha_entrada = consulta.getFecha_entrada();
-    
-            Date fecha_finalizacion = consulta.getFecha_finalizacion();
-            String ciudad = consulta.getCiudad();
-            Integer horas_semanales = consulta.getHoras_semanales();
-            String especialidad = consulta.getEspecialidad();
+            ArrayList<Object> datos1 = new ArrayList<>();
+            datos1.add(consulta.getNombre());
+            datos1.add(consulta.getApellido());
+            datos1.add(consulta.getCorreo());
+            datos1.add(consulta.getFecha_entrada());
+            datos1.add(consulta.getFecha_finalizacion());
+            datos1.add(consulta.getCiudad());
+            datos1.add(consulta.getHoras_semanales());
+            datos1.add(consulta.getEspecialidad());
+            datos1.add(consulta.getCorreo_trabajo());
+            datos1.add(consulta.getComentarios());
+            datos1.add(consulta.getEstado());
+            datos1.add(consulta.getBranch());
 
-            String correo_trabajo = consulta.getCorreo_trabajo();
-            String comentarios = consulta.getComentarios();
-            Boolean estado = consulta.getEstado();
-            branch branch= consulta.getBranch();
 
+            ArrayList<String> datos = new ArrayList<>();
+            datos.add("nombre");
+            datos.add("apellido");
+            datos.add("correo");
+            datos.add("fecha_entrada");
+            datos.add("fecha_finalizacion");
+            datos.add("ciudad");
+            datos.add("horas_semanales");
+            datos.add("especialidad");
+            datos.add("correo_trabajo");
+            datos.add("comentarios");
+            datos.add("estado");
+            datos.add("branch");
 
-            if(comprobarString(nombre)){
-                predicates.add(cb.equal(root.get("nombre"), nombre));
-            }
-
-            if(comprobarString(apellido)){
-                predicates.add(cb.equal(root.get("apellido"), apellido));
-            }
-
-            if(comprobarString(correo)){
-                predicates.add(cb.equal(root.get("correo"), correo));
-            }
-
-            //if(comprobarFechas(fecha_entrada)){ predicates.add(cb.equal(root.get("fecha_entrada"), fecha_entrada));}
-
-            //if(comprobarFechas(fecha_finalizacion)){ predicates.add(cb.equal(root.get("fecha_finalizacion"), fecha_finalizacion));}
-
-            if(comprobarString(ciudad)){
-                predicates.add(cb.equal(root.get("ciudad"), ciudad));
-            }
-
-            if(comprobarString(especialidad)){
-                predicates.add(cb.equal(root.get("especialidad"), especialidad));
-            }
-
-            if(comprobarString(comentarios)){
-                predicates.add(cb.equal(root.get("comentarios"), comentarios));
-            }
-
-            if(comprobarString(correo_trabajo)){
-                predicates.add(cb.equal(root.get("correo_trabajo"), correo_trabajo));
-            }
-
-            if(comprobarNumbers(horas_semanales)){
-                predicates.add(cb.equal(root.get("horas_semanales"), horas_semanales));
-            }
-
-            if(comprobarObjects(estado)){
-                predicates.add(cb.equal(root.get("estado"), estado));
-            }
-
-            if(comprobarObjects(branch)){
-                predicates.add(cb.equal(root.get("branch"), branch));
+            for(int i=0;i<datos.size();i++){
+              addEquals(datos.get(i), datos1.get(i));
             }
 
             query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
@@ -111,17 +85,8 @@ public class StudentRepositoryImpl
     private void addEquals(String nameColum, Object objeto)
     {
         if(comprobarObjects(objeto)) {
-            if (comprobarString(objeto.toString())) {
-                predicates.add(cb.equal(root.get(nameColum), objeto.toString()));
-            } else {
                 predicates.add(cb.equal(root.get(nameColum), objeto));
-            }
         }
-    }
-
-    private void addLike(String nameColum, Object objeto)
-    {
-        //Implementar
     }
 
     private boolean comprobarNumbers(Object num)//Number num)
