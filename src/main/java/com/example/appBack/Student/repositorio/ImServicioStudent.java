@@ -137,7 +137,8 @@ public class ImServicioStudent implements ServicioStudent
     @Override
     public List<StudentDTO> getConsultaCampo(StudentDTO aConsultar)
     {
-        return studentRepository.getQueryEquals(aConsultar);
+        //return studentRepository.getQueryEquals(aConsultar);
+        return studentRepository.getQueryLike(aConsultar);
     }
 
     private boolean compararFechas(StudentDTO sdto)

@@ -32,7 +32,7 @@ public class StudentRepositoryImpl
         predicates = new ArrayList<>();
     }
 
-    public List<StudentDTO> getQueryEquals(StudentDTO consulta)
+    public List<StudentDTO> getQueryLike(StudentDTO consulta)
     {
         try
         {
@@ -68,7 +68,7 @@ public class StudentRepositoryImpl
             datos.add("branch");
 
             for(int i=0;i<datos.size();i++){
-              addEquals(datos.get(i), datos1.get(i));
+              addLike(datos.get(i), datos1.get(i));
             }
 
             query.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
@@ -82,10 +82,10 @@ public class StudentRepositoryImpl
         }
     }
 
-    private void addEquals(String nameColum, Object objeto)
+    private void addLike(String nameColum, Object objeto)
     {
         if(comprobarObjects(objeto)) {
-                predicates.add(cb.equal(root.get(nameColum), objeto));
+                predicates.add(cb.like(root.get(nameColum), objeto.toString()));
         }
     }
 
@@ -105,7 +105,7 @@ public class StudentRepositoryImpl
     private boolean comprobarString(String str)
     {
         try {
-            if (str.trim().length() != 0 && str != null)
+            if (str.trim().length() != 0)
             {
                 return true;
             }
