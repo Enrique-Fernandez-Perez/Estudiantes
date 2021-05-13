@@ -18,10 +18,10 @@ public class StudentRepositoryImpl
     @PersistenceContext
     private EntityManager entityManager;
 
-    private CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-    private CriteriaQuery<Student> query = cb.createQuery(Student.class);
-    private Root<Student> root = query.from(Student.class);
-    private List<Predicate> predicates = new ArrayList<>();
+    private CriteriaBuilder cb ;//= entityManager.getCriteriaBuilder();
+    private CriteriaQuery<Student> query;// = cb.createQuery(Student.class);
+    private Root<Student> root;// = query.from(Student.class);
+    private List<Predicate> predicates;// = new ArrayList<>();
 
 
     private void resetQueries()

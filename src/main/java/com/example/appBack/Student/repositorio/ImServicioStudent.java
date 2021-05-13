@@ -77,8 +77,8 @@ public class ImServicioStudent implements ServicioStudent
     public StudentDTO deleteStudent(String id)
     {
         if(studentRepository.existsById(id)==true) {
-            studentRepository.deleteById(id);
             Student student = studentRepository.getOne(id);
+            studentRepository.deleteById(id);
             return StudentDTO.getStudentDTO(student);
         }
         return null;
@@ -137,8 +137,7 @@ public class ImServicioStudent implements ServicioStudent
     @Override
     public List<StudentDTO> getConsultaCampo(StudentDTO aConsultar)
     {
-        //return studentRepository.getQuery(aConsultar);
-        return null;
+        return studentRepository.getQueryEquals(aConsultar);
     }
 
     private boolean compararFechas(StudentDTO sdto)

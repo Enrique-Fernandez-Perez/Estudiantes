@@ -12,11 +12,11 @@ public interface StudentRepository extends JpaRepository<Student,String>
 
     List<StudentDTO> getQueryEquals(StudentDTO consulta);
 
-    List<StudentDTO> getQueryLike(StudentDTO consulta);
+    //List<StudentDTO> getQueryLike(StudentDTO consulta);
 
-    @Query("Select U FROM Student where nombre = :nombre and apellido = :apellido")
+    //@Query("Select U FROM Student where nombre = :nombre and apellido = :apellido")
     List<Student> findByNombreAndApellido(String nombre, String apellido);
 
-    @Query("Select U FROM Student where correo = :correo")
+    //@Query("Select U FROM Student where correo = :correo")
     List<Student> findByCorreo(String correo);
 }
