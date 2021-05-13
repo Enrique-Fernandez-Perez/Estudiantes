@@ -85,7 +85,7 @@ public class StudentRepositoryImpl
     private void addLike(String nameColum, Object objeto)
     {
         if(comprobarObjects(objeto)) {
-                predicates.add(cb.like(root.get(nameColum), objeto.toString()));
+                predicates.add(cb.like(root.get(nameColum),"%"+ objeto.toString() +"%"));
         }
     }
 
