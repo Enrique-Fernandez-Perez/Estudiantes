@@ -32,4 +32,17 @@ public class ComprobarNulos {
         }catch(Exception e){ }
         return false;
     }
+
+    public static boolean comprobarNumbers(Object num)
+    {
+        try
+        {
+            Double p = Double.parseDouble(num.toString());
+            return true;
+        }
+        catch (Exception e){
+
+            return false;
+        }
+    }
 }

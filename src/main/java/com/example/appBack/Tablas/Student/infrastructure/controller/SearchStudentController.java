@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/estudiante")
 @CrossOrigin("*")
-@Api(tags= "estudiante")
+@Api(tags= "Consulta (like) estudiante" ,description = "En la consulta se ignoran los campos nulos o que solo contengan espacios, ademas hace una busqueda por contenido no por exactitud ")
 @RestController
 public class SearchStudentController {
 
