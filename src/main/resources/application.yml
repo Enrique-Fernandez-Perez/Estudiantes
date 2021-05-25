@@ -1,8 +1,8 @@
 spring:
   jpa:
     database: postgresql
-    show-sql: true
-    hibernate.ddl-auto: create-drop
+    show-sql: false
+    hibernate.ddl-auto: update #create-drop
   datasource:
     platform: postgres
     url: jdbc:postgresql://localhost:5432/postgres
