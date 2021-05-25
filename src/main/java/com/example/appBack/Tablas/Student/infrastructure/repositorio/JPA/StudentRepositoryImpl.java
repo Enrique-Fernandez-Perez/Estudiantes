@@ -87,7 +87,7 @@ public class StudentRepositoryImpl
     private void addLike(String nameColum, Object objeto)
     {
         if(ComprobarNulos.comprobarObjects(objeto)) {
-            if(ComprobarNulos.comprobarNumbers(objeto)){
+            if(ComprobarNulos.comprobarDistincString(objeto)){
                 predicates.add(cb.equal(root.get(nameColum), objeto));
                 return;
             }

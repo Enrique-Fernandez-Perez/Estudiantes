@@ -1,5 +1,7 @@
 package com.example.appBack.Comprobadores;
 
+import java.util.Date;
+
 public class ComprobarNulos {
 
     public static boolean comprobarString(String str) throws RuntimeException
@@ -33,16 +35,25 @@ public class ComprobarNulos {
         return false;
     }
 
-    public static boolean comprobarNumbers(Object num)
+    public static boolean comprobarDistincString(Object object)
     {
         try
         {
-            Double p = Double.parseDouble(num.toString());
+            Double num = Double.parseDouble(object.toString());
             return true;
         }
-        catch (Exception e){
-
-            return false;
+        catch (Exception numeric){
+            try{
+                Boolean bol = Boolean.parseBoolean(object.toString());
+                return true;
+            }catch (Exception booleano){
+                try {
+                    Date fech = (Date) object;
+                    return true;
+                }catch (Exception fechas){
+                    return false;
+                }
+            }
         }
     }
 }
